@@ -3,6 +3,11 @@
 # 决策树可视化编辑器 - 一键安装脚本
 # 适用于 macOS 和 Linux 系统
 
+# Set UTF-8 encoding for proper Chinese character display
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+
 set -e  # 遇到错误时退出
 
 echo "=========================================="
