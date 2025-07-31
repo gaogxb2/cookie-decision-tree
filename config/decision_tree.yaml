@@ -1,0 +1,312 @@
+decision_tree:
+  nodes:
+    all_apps_slow:
+      solution: 所有程序都慢可能是系统资源不足或病毒问题。尝试清理系统，运行杀毒软件，或升级硬件。
+    all_sites_unavailable:
+      solution: 所有网站都无法访问可能是网络连接问题。请检查网络设置，重启网络设备，或联系网络服务提供商。
+    always_unstable:
+      solution: 网络一直不稳定可能是设备老化或信号问题。建议更换路由器或网络设备，或联系网络服务提供商。
+    app_slow:
+      options:
+      - next_node: all_apps_slow
+        text: 所有程序都慢
+      - next_node: specific_app_slow
+        text: 特定程序慢
+      - next_node: new_app_slow
+        text: 新安装的程序慢
+      question: 哪些程序运行缓慢？
+    audio_distortion:
+      solution: 声音失真可能是音频设置或硬件问题。检查音频设置，尝试更换音频线，或更换音频设备。
+    audio_issue:
+      options:
+      - next_node: no_audio
+        text: 没有声音
+      - next_node: audio_distortion
+        text: 声音失真
+      - next_node: audio_very_quiet
+        text: 声音很小
+      question: 声音问题是什么？
+    audio_very_quiet:
+      solution: 声音很小可能是音量设置或硬件问题。检查系统音量设置，尝试更换音频设备。
+    auxiliary_function_issue:
+      solution: 辅助功能异常不影响主要使用。可以尝试重置相关设置，或等待软件更新修复。
+    boot_stops_midway:
+      solution: 启动到一半停止可能是硬盘或系统问题。尝试进入安全模式，或重新安装操作系统。
+    both_input_no_response:
+      solution: 键盘鼠标都无响应可能是USB控制器问题。尝试重启系统，或联系专业维修。
+    cant_install_programs:
+      solution: 无法安装新程序是因为存储空间不足。建议清理磁盘空间，或升级存储设备。
+    cant_save_files:
+      solution: 无法保存文件是因为存储空间不足。建议清理磁盘空间，或升级存储设备。
+    computer_wont_start:
+      options:
+      - next_node: no_power_response
+        text: 完全没反应
+      - next_node: power_light_no_boot2
+        text: 有电源指示灯但不启动
+      - next_node: boot_stops_midway
+        text: 启动到一半停止
+      question: 电脑无法开机时有什么现象？
+    core_function_issue:
+      solution: 核心功能异常影响软件正常使用。建议重新安装软件，或联系软件开发商获取技术支持。
+    data_loss:
+      solution: 数据丢失问题严重，建议立即停止使用该软件，尝试数据恢复，或联系专业数据恢复服务。
+    display_black_screen:
+      solution: 显示器黑屏可能是显卡或显示器问题。检查显示器电源和信号线，尝试更换显卡或显示器。
+    display_color_issue:
+      solution: 显示器颜色异常可能是显卡驱动或显示器设置问题。尝试更新显卡驱动，或调整显示器色彩设置。
+    display_glitch:
+      solution: 显示器花屏可能是显卡故障或信号线问题。尝试更换信号线，或更换显卡。
+    display_issue:
+      options:
+      - next_node: display_black_screen
+        text: 显示器黑屏
+      - next_node: display_glitch
+        text: 显示器花屏
+      - next_node: display_color_issue
+        text: 显示器颜色异常
+      question: 显示器问题是什么？
+    frequent_crashes:
+      solution: 程序经常崩溃可能是内存不足或程序问题。尝试关闭其他程序，或重新安装问题程序。
+    function_abnormal:
+      options:
+      - next_node: core_function_issue
+        text: 核心功能
+      - next_node: auxiliary_function_issue
+        text: 辅助功能
+      - next_node: new_function_issue
+        text: 新功能
+      question: 哪个功能出现异常？
+    function_error:
+      solution: 功能异常可能是程序版本问题或设置错误。尝试重置软件设置，或更新到最新版本。
+    hardware_issue:
+      options:
+      - next_node: computer_wont_start
+        text: 电脑无法开机
+      - next_node: display_issue
+        text: 显示器问题
+      - next_node: input_device_issue
+        text: 键盘鼠标问题
+      - next_node: audio_issue
+        text: 声音问题
+      question: 硬件问题涉及哪个设备？
+    input_device_issue:
+      options:
+      - next_node: keyboard_no_response
+        text: 键盘无响应
+      - next_node: mouse_no_response
+        text: 鼠标无响应
+      - next_node: both_input_no_response
+        text: 键盘鼠标都无响应
+      - next_node: new_node_1753940956102
+        text: 新选项
+      question: 键盘鼠标问题是什么？
+    intermittent_slow:
+      solution: 网络速度间歇性慢可能是信号干扰或设备问题。尝试更换WiFi信道，或检查是否有其他设备占用带宽。
+    keyboard_no_response:
+      solution: 键盘无响应可能是连接问题或键盘故障。检查键盘连接，尝试更换USB端口，或更换键盘。
+    memory_issue:
+      options:
+      - next_node: frequent_crashes
+        text: 程序经常崩溃
+      - next_node: memory_warning
+        text: 系统提示内存不足
+      - next_node: slow_due_to_memory
+        text: 程序运行缓慢
+      question: 内存不足的表现是什么？
+    memory_warning:
+      solution: 系统提示内存不足需要增加内存。建议升级内存条，或关闭不必要的程序。
+    mobile_no_connection:
+      solution: 请检查移动网络信号强度，确认手机卡是否正常，尝试重启手机或重新插拔SIM卡。
+    mouse_no_response:
+      solution: 鼠标无响应可能是连接问题或鼠标故障。检查鼠标连接，尝试更换USB端口，或更换鼠标。
+    network_issue:
+      options:
+      - next_node: no_connection
+        text: 无法连接网络
+      - next_node: slow_network
+        text: 网络速度很慢
+      - next_node: unstable_network
+        text: 网络不稳定，经常断线
+      - next_node: specific_site_issue
+        text: 特定网站无法访问
+      question: 您的网络问题具体表现是什么？
+    new_app_slow:
+      solution: 新安装的程序慢可能是兼容性问题或系统资源不足。尝试以管理员身份运行，或升级硬件。
+    new_function_issue:
+      solution: 新功能问题可能是版本兼容性问题。尝试回退到之前的稳定版本，或等待开发者修复。
+    new_node_1753940956102:
+      options: []
+      question: 脑子无响应
+    no_audio:
+      solution: 没有声音可能是音频驱动或硬件问题。检查音频设备连接，更新音频驱动，或更换音频设备。
+    no_connection:
+      options:
+      - next_node: wifi_no_connection
+        text: WiFi连接
+      - next_node: wired_no_connection
+        text: 有线连接
+      - next_node: mobile_no_connection
+        text: 移动网络
+      question: 您的网络连接方式是什么？
+    no_power_response:
+      solution: 电脑完全没反应可能是电源问题。检查电源线连接，尝试更换电源适配器，或联系维修服务。
+    performance_issue:
+      options:
+      - next_node: system_slow
+        text: 系统运行缓慢
+      - next_node: app_slow
+        text: 程序响应慢
+      - next_node: memory_issue
+        text: 内存不足
+      - next_node: storage_issue
+        text: 存储空间不足
+      question: 性能问题表现在哪里？
+    persistent_slow:
+      solution: 网络速度持续慢可能是带宽不足或网络设备问题。建议联系网络服务提供商检查带宽，或更换路由器。
+    power_light_no_boot2:
+      solution: 有电源指示灯但不启动可能是主板或内存问题。尝试重新插拔内存条，或联系专业维修。
+    recent_unstable:
+      solution: 最近出现的网络不稳定可能是设备故障或环境变化。尝试重启网络设备，检查是否有新设备干扰。
+    slow_boot:
+      solution: 开机很慢可能是启动项过多或硬盘问题。尝试禁用不必要的启动项，或更换SSD硬盘。
+    slow_due_to_memory:
+      solution: 因内存不足导致程序运行缓慢。建议升级内存，或关闭不必要的程序释放内存。
+    slow_due_to_storage:
+      solution: 因存储空间不足导致系统运行缓慢。建议清理磁盘空间，或升级存储设备。
+    slow_network:
+      options:
+      - next_node: persistent_slow
+        text: 持续性的
+      - next_node: intermittent_slow
+        text: 间歇性的
+      question: 网络速度慢是持续性的还是间歇性的？
+    slow_program_execution:
+      solution: 程序运行很慢可能是内存不足或CPU问题。尝试关闭其他程序，或升级硬件。
+    slow_system_response:
+      solution: 系统响应慢可能是系统资源不足。尝试清理系统垃圾，或升级内存和CPU。
+    software_crash:
+      solution: 程序崩溃可能是内存不足或程序错误。尝试关闭其他程序释放内存，或重新安装软件。
+    software_crashes:
+      solution: 软件启动后立即关闭可能是兼容性问题或程序损坏。尝试以管理员身份运行，或重新安装软件。
+    software_error:
+      options:
+      - next_node: software_crash
+        text: 程序崩溃
+      - next_node: function_error
+        text: 功能异常
+      - next_node: data_loss
+        text: 数据丢失
+      question: 软件运行时出现什么类型的错误？
+    software_error_message:
+      solution: 根据错误提示信息，尝试重新安装软件，或检查系统兼容性。如果问题持续，请联系软件技术支持。
+    software_issue:
+      options:
+      - next_node: software_wont_start
+        text: 软件无法启动
+      - next_node: software_error
+        text: 软件运行出错
+      - next_node: function_abnormal
+        text: 功能异常
+      - next_node: ui_issue
+        text: 界面显示问题
+      question: 软件问题出现在哪个方面？
+    software_no_response:
+      solution: 软件无响应可能是程序损坏或系统问题。尝试重新安装软件，或检查系统更新。
+    software_wont_start:
+      options:
+      - next_node: software_error_message
+        text: 有错误提示
+      - next_node: software_no_response
+        text: 没有任何反应
+      - next_node: software_crashes
+        text: 启动后立即关闭
+      question: 软件无法启动时有什么错误提示吗？
+    solution:
+      solution: 换屏幕
+    specific_app_slow:
+      solution: 特定程序慢可能是程序本身问题或兼容性问题。尝试重新安装程序，或检查系统兼容性。
+    specific_site_issue:
+      options:
+      - next_node: specific_sites_only
+        text: 只有特定网站
+      - next_node: all_sites_unavailable
+        text: 所有网站都无法访问
+      question: 是所有网站都无法访问，还是只有特定网站？
+    specific_sites_only:
+      solution: 特定网站无法访问可能是DNS问题或网站服务器问题。尝试更换DNS服务器，或稍后再试。
+    start:
+      options:
+      - next_node: network_issue
+        text: 网络连接问题
+      - next_node: software_issue
+        text: 软件功能问题
+      - next_node: hardware_issue
+        text: 硬件问题
+      - next_node: performance_issue
+        text: 性能问题
+      - next_node: 空调坏了_issue
+        text: 有气出来吗？
+      - next_node: 手机坏了_issue
+        text: 哪里坏了？
+      question: 您遇到了什么类型的问题？
+    step_1:
+      options:
+      - next_node: solution
+        text: 屏幕
+      question: 哪里坏了？
+    storage_issue:
+      options:
+      - next_node: cant_install_programs
+        text: 无法安装新程序
+      - next_node: cant_save_files
+        text: 无法保存文件
+      - next_node: slow_due_to_storage
+        text: 系统运行缓慢
+      question: 存储空间不足影响什么？
+    system_slow:
+      options:
+      - next_node: slow_boot
+        text: 开机很慢
+      - next_node: slow_program_execution
+        text: 运行程序很慢
+      - next_node: slow_system_response
+        text: 系统响应慢
+      question: 系统运行缓慢表现在哪里？
+    ui_display_issue:
+      solution: 界面显示异常可能是显卡驱动问题或软件设置问题。尝试更新显卡驱动，或重置软件显示设置。
+    ui_issue:
+      options:
+      - next_node: ui_display_issue
+        text: 界面显示异常
+      - next_node: ui_unresponsive
+        text: 界面无响应
+      - next_node: ui_layout_issue
+        text: 界面布局错乱
+      question: 界面显示问题是什么？
+    ui_layout_issue:
+      solution: 界面布局错乱可能是分辨率设置问题或软件bug。尝试调整显示分辨率，或重新安装软件。
+    ui_unresponsive:
+      solution: 界面无响应可能是程序卡死或系统问题。尝试强制关闭程序，或重启系统。
+    unstable_network:
+      options:
+      - next_node: recent_unstable
+        text: 是的，最近才出现
+      - next_node: always_unstable
+        text: 一直都不稳定
+      question: 网络不稳定是最近才出现的吗？
+    wifi_no_connection:
+      solution: 请检查WiFi开关是否打开，WiFi密码是否正确，路由器是否正常工作。尝试重启路由器。
+    wired_no_connection:
+      solution: 请检查网线是否连接正确，网线是否损坏，路由器端口是否正常。尝试更换网线或端口。
+    手机坏了_issue:
+      options:
+      - next_node: step_1
+        text: 屏幕
+      question: 哪里坏了？
+    空调坏了_issue:
+      options:
+      - next_node: step_1
+        text: 没有
+      question: 有气出来吗？
+  root_node: start

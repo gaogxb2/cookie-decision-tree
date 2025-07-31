@@ -1,0 +1,148 @@
+# AI配置
+ai:
+  # API配置
+  api:
+    # 阿里云百炼配置
+    dashscope:
+      base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+      model: "qwen-plus"
+      temperature: 0.1
+      max_tokens: 2000
+    
+    # OpenAI配置（备用）
+    openai:
+      base_url: "https://api.openai.com/v1"
+      model: "gpt-4"
+      temperature: 0.1
+      max_tokens: 2000
+    
+    # 备用API配置
+    azure:
+      base_url: "https://your-resource.openai.azure.com/"
+      api_version: "2024-02-15-preview"
+      deployment_name: "gpt-4"
+    
+    # 本地模型配置
+    local:
+      base_url: "http://localhost:11434/v1"
+      model: "qwen2.5:7b"
+    
+    # 自定义HTTP POST请求配置
+    custom_http:
+      url: "https://your-ai-service.com/api/chat"
+      method: "POST"
+      headers:
+        "Content-Type": "application/json"
+        "Authorization": "Bearer ${CUSTOM_API_KEY}"
+        "X-API-Version": "v1"
+      # 请求体模板，使用 {messages} 作为占位符
+      body_template: |
+        {
+          "messages": {messages},
+          "model": "your-model-name",
+          "temperature": 0.1,
+          "max_tokens": 2000
+        }
+      # 响应解析配置
+      response_parser:
+        # 响应中AI回复的字段路径（支持嵌套，用.分隔）
+        content_field: "choices.0.message.content"
+        # 如果响应是数组，指定索引
+        array_index: null
+        # 错误字段路径
+        error_field: "error.message"
+  
+  # 当前使用的API类型
+  current_api: "dashscope"  # dashscope, openai, azure, local, custom_http
+  
+  # API密钥配置
+  api_keys:
+    dashscope: "${DASHSCOPE_API_KEY}"
+    openai: "${OPENAI_API_KEY}"
+    azure: "${AZURE_OPENAI_API_KEY}"
+    custom_http: "${CUSTOM_API_KEY}"
+
+# 聊天记录解析配置
+chat_parser:
+  # 解析模式
+  modes:
+    - "auto"      # 自动解析
+    - "manual"    # 手动确认
+    - "hybrid"    # 混合模式
+  
+  # 当前模式
+  current_mode: "hybrid"
+  
+  # 解析规则
+  rules:
+    # 问题识别关键词
+    problem_keywords:
+      - "问题"
+      - "故障"
+      - "错误"
+      - "异常"
+      - "无法"
+      - "不能"
+    
+    # 解决方案关键词
+    solution_keywords:
+      - "解决"
+      - "修复"
+      - "处理"
+      - "方法"
+      - "步骤"
+      - "操作"
+    
+    # 排除的关键词
+    exclude_keywords:
+      - "你好"
+      - "谢谢"
+      - "再见"
+      - "ok"
+      - "好的"
+
+# 决策树增补配置
+tree_augment:
+  # 新增节点样式
+  new_node_style:
+    background_color: "#e3f2fd"  # 浅蓝色
+    border_color: "#2196f3"      # 蓝色边框
+    text_color: "#1976d2"        # 深蓝色文字
+  
+  # 新增关系样式
+  new_relation_style:
+    stroke_color: "#4caf50"      # 绿色
+    stroke_width: 3
+    stroke_dasharray: "5,5"      # 虚线
+  
+  # 修改节点样式
+  modified_node_style:
+    background_color: "#fff3e0"  # 浅橙色
+    border_color: "#ff9800"      # 橙色边框
+    text_color: "#f57c00"        # 深橙色文字
+  
+  # 确认后样式
+  confirmed_style:
+    background_color: "#e8f5e8"  # 浅绿色
+    border_color: "#4caf50"      # 绿色边框
+    text_color: "#2e7d32"        # 深绿色文字
+
+# 用户界面配置
+ui:
+  # 确认对话框
+  confirmation:
+    show_preview: true
+    auto_save: false
+    backup_before_merge: true
+  
+  # 编辑模式
+  edit_mode:
+    allow_node_edit: true
+    allow_relation_edit: true
+    allow_delete: false  # 不允许删除原有节点
+  
+  # 预览模式
+  preview:
+    show_diff: true
+    highlight_changes: true
+    side_by_side: false 

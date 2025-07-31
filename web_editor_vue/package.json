@@ -1,0 +1,32 @@
+{
+  "name": "decision-tree-editor-vue",
+  "version": "1.0.0",
+  "description": "决策树可视化编辑器 - Vue.js版本",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4",
+    "axios": "^1.4.0",
+    "element-plus": "^2.3.8",
+    "@element-plus/icons-vue": "^2.1.0",
+    "d3": "^7.8.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.4",
+    "vite": "^2.9.15"
+  },
+  "keywords": [
+    "vue",
+    "decision-tree",
+    "editor",
+    "visualization"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT"
+}
