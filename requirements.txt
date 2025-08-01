@@ -1,6 +1,27 @@
+# AI 和语言模型相关
 langgraph==0.3.18
 langchain-core>=0.1.0
+openai>=1.0.0
+
+# 数据验证和序列化
 pydantic>=2.7.4
 pyyaml>=5.3
+
+# Web 框架和 API
 flask>=2.0.0
 flask-cors>=3.0.0
+
+# HTTP 请求
+requests>=2.25.0
+
+# 系统标准库（通常不需要安装，但列出以供参考）
+# typing - Python 标准库
+# datetime - Python 标准库
+# json - Python 标准库
+# os - Python 标准库
+# sys - Python 标准库
+# re - Python 标准库
+# threading - Python 标准库
+# tkinter - Python 标准库（GUI）
+# webbrowser - Python 标准库
+# subprocess - Python 标准库
