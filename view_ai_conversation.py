@@ -56,7 +56,7 @@ def view_ai_conversation():
 用户: 更新后可以连接了，谢谢
     """
     
-    print("📤 发送给AI的消息:")
+    print("ℹ️ 发送给AI的消息:")
     print("-" * 40)
     
     # 显示当前使用的prompt
@@ -96,7 +96,7 @@ def view_ai_conversation():
             timeout=30
         )
         
-        print(f"📥 响应状态码: {response.status_code}")
+        print(f"ℹ️ 响应状态码: {response.status_code}")
         print()
         
         if response.status_code == 200:
@@ -175,7 +175,7 @@ def view_direct_ai_call():
 用户: 更新后可以连接了，谢谢
     """
     
-    print("📤 直接AI调用详情:")
+    print("ℹ️ 直接AI调用详情:")
     print("-" * 40)
     
     try:
@@ -214,7 +214,7 @@ def view_direct_ai_call():
         
         ai_response = caller._call_ai_api(messages)
         
-        print("📥 AI原始回复:")
+        print("ℹ️ AI原始回复:")
         print("-" * 40)
         print(ai_response)
         print()

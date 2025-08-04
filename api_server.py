@@ -5,9 +5,47 @@ from flask_cors import CORS
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 from decision_tree_engine import DecisionTreeEngine
+import platform
 
 app = Flask(__name__)
 CORS(app)
+
+# 检测操作系统，在 Windows 下使用安全的字符
+def get_safe_chars():
+    """根据操作系统返回安全的字符"""
+    if platform.system() == 'Windows':
+        return {
+            'success': '[SUCCESS]',
+            'error': '[ERROR]',
+            'info': '[INFO]',
+            'warning': '[WARNING]',
+            'ai': '[AI]',
+            'time': '[TIME]',
+            'user': '[USER]',
+            'system': '[SYSTEM]',
+            'parse': '[PARSE]',
+            'save': '[SAVE]',
+            'separator': '=' * 80,
+            'sub_separator': '-' * 40
+        }
+    else:
+        return {
+            'success': '✅',
+            'error': '❌',
+            'info': 'ℹ️',
+            'warning': '⚠️',
+            'ai': '🤖',
+            'time': '⏱️',
+            'user': '👤',
+            'system': '🔧',
+            'parse': '🔍',
+            'save': '💾',
+            'separator': '=' * 80,
+            'sub_separator': '-' * 40
+        }
+
+# 获取安全字符
+safe_chars = get_safe_chars()
 
 class DecisionTreeAPI:
     def __init__(self, config_file: str = None):
@@ -232,24 +270,24 @@ def log_ai_conversation(caller, chat_history):
         
         # 构建日志内容
         log_content = []
-        log_content.append("=" * 80)
-        log_content.append("🤖 AI对话记录 (前端调用)")
-        log_content.append("=" * 80)
-        log_content.append(f"📅 时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        log_content.append(f"⏱️ 处理时间: {processing_time:.2f}秒")
+        log_content.append(safe_chars['separator'])
+        log_content.append(f"{safe_chars['ai']} AI对话记录 (前端调用)")
+        log_content.append(safe_chars['separator'])
+        log_content.append(f"{safe_chars['time']} 时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        log_content.append(f"{safe_chars['time']} 处理时间: {processing_time:.2f}秒")
         log_content.append("")
         
-        log_content.append("📤 发送给AI的消息:")
-        log_content.append("-" * 40)
-        log_content.append("🔧 System Prompt:")
+        log_content.append(f"{safe_chars['info']} 发送给AI的消息:")
+        log_content.append(safe_chars['sub_separator'])
+        log_content.append(f"{safe_chars['system']} System Prompt:")
         log_content.append(system_prompt)
         log_content.append("")
-        log_content.append("👤 User Prompt:")
+        log_content.append(f"{safe_chars['user']} User Prompt:")
         log_content.append(user_prompt)
         log_content.append("")
         
-        log_content.append("📥 AI回复内容:")
-        log_content.append("-" * 40)
+        log_content.append(f"{safe_chars['info']} AI回复内容:")
+        log_content.append(safe_chars['sub_separator'])
         log_content.append(ai_response)
         log_content.append("")
         
@@ -258,17 +296,17 @@ def log_ai_conversation(caller, chat_history):
             try:
                 parsed_data = caller._extract_json_from_response(ai_response)
                 if parsed_data:
-                    log_content.append("🔍 解析后的JSON数据:")
-                    log_content.append("-" * 40)
+                    log_content.append(f"{safe_chars['parse']} 解析后的JSON数据:")
+                    log_content.append(safe_chars['sub_separator'])
                     log_content.append(json.dumps(parsed_data, ensure_ascii=False, indent=2))
                     log_content.append("")
             except Exception as e:
-                log_content.append(f"❌ JSON解析失败: {e}")
+                log_content.append(f"{safe_chars['error']} JSON解析失败: {e}")
                 log_content.append("")
         
-        log_content.append("=" * 80)
-        log_content.append("✅ 对话记录完成")
-        log_content.append("=" * 80)
+        log_content.append(safe_chars['separator'])
+        log_content.append(f"{safe_chars['success']} 对话记录完成")
+        log_content.append(safe_chars['separator'])
         
         # 保存到文件
         filename = f"ai_conversation_frontend_{timestamp}.txt"
@@ -276,10 +314,10 @@ def log_ai_conversation(caller, chat_history):
         with open(filename, 'w', encoding='utf-8') as f:
             f.write('\n'.join(log_content))
         
-        print(f"💾 AI对话记录已保存到: {filename}")
+        print(f"{safe_chars['save']} AI对话记录已保存到: {filename}")
         
     except Exception as e:
-        print(f"❌ 记录AI对话失败: {e}")
+        print(f"{safe_chars['error']} 记录AI对话失败: {e}")
 
 @app.route('/api/ai/confirm-changes', methods=['POST'])
 def confirm_changes():

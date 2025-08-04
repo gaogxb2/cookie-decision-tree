@@ -28,7 +28,7 @@ def test_old_ai_api():
 用户: 更新后可以连接了，谢谢
     """
     
-    print("📤 发送请求到 /api/ai/process-chat...")
+    print("ℹ️ 发送请求到 /api/ai/process-chat...")
     print("-" * 40)
     
     try:
@@ -42,7 +42,7 @@ def test_old_ai_api():
             timeout=30
         )
         
-        print(f"📥 响应状态码: {response.status_code}")
+        print(f"ℹ️ 响应状态码: {response.status_code}")
         print()
         
         if response.status_code == 200:

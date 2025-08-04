@@ -122,7 +122,7 @@ class AITreeAugmentor:
     
     def batch_process_chats(self, chat_files: List[str], auto_merge: bool = False) -> List[Dict]:
         """批量处理聊天记录文件"""
-        print(f"📦 开始批量处理 {len(chat_files)} 个聊天记录文件...")
+        print(f"ℹ️ 开始批量处理 {len(chat_files)} 个聊天记录文件...")
         
         results = []
         for i, chat_file in enumerate(chat_files, 1):

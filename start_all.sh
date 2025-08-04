@@ -31,10 +31,19 @@ echo "后端将在 http://localhost:5000 启动"
 python api_server.py &
 BACKEND_PID=$!
 
-# 启动前端服务器
+# 安装前端依赖并启动前端服务器
+echo "📦 安装前端依赖..."
+cd web_editor_vue
+if [ ! -d "node_modules" ]; then
+    echo "🔧 首次安装，正在安装 npm 依赖..."
+    npm install
+else
+    echo "✅ node_modules 已存在，跳过安装"
+fi
+
 echo "启动前端服务器..."
 echo "前端将在 http://localhost:3000 启动"
-cd web_editor_vue && npm run dev &
+npm run dev &
 FRONTEND_PID=$!
 
 # 等待用户中断

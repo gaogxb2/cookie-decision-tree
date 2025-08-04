@@ -28,7 +28,7 @@ def test_frontend_ai_logging():
 用户: 更新后可以连接了，谢谢
     """
     
-    print("📤 发送测试请求到后端...")
+    print("ℹ️ 发送测试请求到后端...")
     print("-" * 40)
     
     try:
@@ -42,7 +42,7 @@ def test_frontend_ai_logging():
             timeout=30
         )
         
-        print(f"📥 响应状态码: {response.status_code}")
+        print(f"ℹ️ 响应状态码: {response.status_code}")
         print()
         
         if response.status_code == 200:
@@ -113,7 +113,7 @@ def check_log_files():
         latest_file = log_files[0]
         
         print(f"📄 最新日志文件: {latest_file}")
-        print(f"📅 修改时间: {datetime.fromtimestamp(os.path.getmtime(latest_file))}")
+        print(f"⏱️ 修改时间: {datetime.fromtimestamp(os.path.getmtime(latest_file))}")
         print()
         
         # 显示文件内容的前几行

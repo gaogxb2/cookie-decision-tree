@@ -26,7 +26,7 @@ def test_ai_direct_process():
 用户: 更新后可以连接了，谢谢
     """
     
-    print("📤 发送测试请求到后端...")
+    print("ℹ️ 发送测试请求到后端...")
     
     try:
         response = requests.post(
@@ -39,7 +39,7 @@ def test_ai_direct_process():
             timeout=30
         )
         
-        print(f"📥 响应状态码: {response.status_code}")
+        print(f"ℹ️ 响应状态码: {response.status_code}")
         
         if response.status_code == 200:
             result = response.json()
@@ -103,7 +103,7 @@ def test_frontend_access():
     
     try:
         response = requests.get('http://localhost:3003/', timeout=10)
-        print(f"📥 前端响应状态码: {response.status_code}")
+        print(f"ℹ️ 前端响应状态码: {response.status_code}")
         
         if response.status_code == 200:
             print("✅ 前端服务正常")

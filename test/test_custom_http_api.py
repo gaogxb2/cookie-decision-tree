@@ -71,7 +71,7 @@ def test_custom_http_api_with_mock():
             {"role": "user", "content": "我的电脑无法连接网络，请帮我分析一下"}
         ]
         
-        print("📤 准备测试请求...")
+        print("ℹ️ 准备测试请求...")
         print(f"URL: {test_config['ai']['api']['custom_http']['url']}")
         print(f"Headers: {json.dumps(test_config['ai']['api']['custom_http']['headers'], indent=2, ensure_ascii=False)}")
         print(f"Messages: {json.dumps(test_messages, ensure_ascii=False, indent=2)}")

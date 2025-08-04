@@ -30,27 +30,9 @@ ai:
     # 自定义HTTP POST请求配置
     custom_http:
       url: "https://your-ai-service.com/api/chat"
-      method: "POST"
       headers:
         "Content-Type": "application/json"
         "Authorization": "Bearer ${CUSTOM_API_KEY}"
-        "X-API-Version": "v1"
-      # 请求体模板，使用 {messages} 作为占位符
-      body_template: |
-        {
-          "messages": {messages},
-          "model": "your-model-name",
-          "temperature": 0.1,
-          "max_tokens": 2000
-        }
-      # 响应解析配置
-      response_parser:
-        # 响应中AI回复的字段路径（支持嵌套，用.分隔）
-        content_field: "choices.0.message.content"
-        # 如果响应是数组，指定索引
-        array_index: null
-        # 错误字段路径
-        error_field: "error.message"
   
   # 当前使用的API类型
   current_api: "dashscope"  # dashscope, openai, azure, local, custom_http

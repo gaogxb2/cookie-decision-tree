@@ -1,0 +1,75 @@
+# AI配置 - 自定义格式版本
+ai:
+  # API配置
+  api:
+    # 自定义HTTP POST请求配置 - 支持 inputs/parameters 格式
+    custom_http:
+      url: "https://your-ai-service.com/api/chat"
+      method: "POST"
+      headers:
+        "Content-Type": "application/json"
+        "Authorization": "Bearer ${CUSTOM_API_KEY}"
+        "X-API-Version": "v1"
+      # 请求体模板 - 使用 {prompt} 作为占位符
+      body_template: |
+        {
+          "inputs": "{prompt}",
+          "parameters": {
+            "detail": true,
+            "temperature": 0.1
+          }
+        }
+      # 响应解析配置
+      response_parser:
+        # 响应中AI回复的字段路径（支持嵌套，用.分隔）
+        content_field: "output"  # 或者 "response", "result" 等
+        # 如果响应是数组，指定索引
+        array_index: null
+        # 错误字段路径
+        error_field: "error.message"
+  
+  # 当前使用的API类型
+  current_api: "custom_http"
+  
+  # API密钥配置
+  api_keys:
+    custom_http: "${CUSTOM_API_KEY}"
+
+# 聊天记录解析配置
+chat_parser:
+  # 解析模式
+  modes:
+    - "auto"      # 自动解析
+    - "manual"    # 手动确认
+    - "hybrid"    # 混合模式
+  
+  # 当前模式
+  current_mode: "hybrid"
+  
+  # 解析规则
+  rules:
+    # 问题识别关键词
+    problem_keywords:
+      - "问题"
+      - "故障"
+      - "错误"
+      - "异常"
+      - "无法"
+      - "不能"
+    
+    # 解决方案关键词
+    solution_keywords:
+      - "解决"
+      - "修复"
+      - "处理"
+      - "方法"
+      - "步骤"
+      - "操作"
+    
+    # 排除的关键词
+    exclude_keywords:
+      - "你好"
+      - "谢谢"
+      - "再见"
+      - "ok"
+      - "好的" 

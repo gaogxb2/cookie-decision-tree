@@ -10,6 +10,44 @@ from typing import Dict, List, Optional, Tuple
 from datetime import datetime
 import openai
 import requests
+import platform
+
+# 检测操作系统，在 Windows 下使用安全的字符
+def get_safe_chars():
+    """根据操作系统返回安全的字符"""
+    if platform.system() == 'Windows':
+        return {
+            'success': '[SUCCESS]',
+            'error': '[ERROR]',
+            'info': '[INFO]',
+            'warning': '[WARNING]',
+            'ai': '[AI]',
+            'time': '[TIME]',
+            'user': '[USER]',
+            'system': '[SYSTEM]',
+            'parse': '[PARSE]',
+            'save': '[SAVE]',
+            'separator': '=' * 80,
+            'sub_separator': '-' * 40
+        }
+    else:
+        return {
+            'success': '✅',
+            'error': '❌',
+            'info': 'ℹ️',
+            'warning': '⚠️',
+            'ai': '🤖',
+            'time': '⏱️',
+            'user': '👤',
+            'system': '🔧',
+            'parse': '🔍',
+            'save': '💾',
+            'separator': '=' * 80,
+            'sub_separator': '-' * 40
+        }
+
+# 获取安全字符
+safe_chars = get_safe_chars()
 
 class AIChatParser:
     def __init__(self, ai_config_file: str = "config/ai_config.yaml", 
@@ -25,7 +63,7 @@ class AIChatParser:
             with open(config_file, 'r', encoding='utf-8') as f:
                 return yaml.safe_load(f)
         except Exception as e:
-            print(f"❌ 加载配置文件失败: {e}")
+            print(f"{safe_chars['error']} 加载配置文件失败: {e}")
             sys.exit(1)
     
     def _init_ai_client(self):
@@ -92,8 +130,25 @@ class AIChatParser:
                 
                 return response.choices[0].message.content
         except Exception as e:
-            print(f"❌ AI API调用失败: {e}")
+            print(f"{safe_chars['error']} AI API调用失败: {e}")
             return None
+    
+    def _messages_to_prompt(self, messages: List[Dict]) -> str:
+        """将消息列表转换为单个提示文本"""
+        prompt_parts = []
+        
+        for message in messages:
+            role = message.get('role', 'user')
+            content = message.get('content', '')
+            
+            if role == 'system':
+                prompt_parts.append(f"系统指令: {content}")
+            elif role == 'user':
+                prompt_parts.append(f"用户: {content}")
+            elif role == 'assistant':
+                prompt_parts.append(f"助手: {content}")
+        
+        return '\n\n'.join(prompt_parts)
     
     def _call_custom_http_api(self, messages: List[Dict]) -> str:
         """调用自定义HTTP API"""
@@ -116,71 +171,36 @@ class AIChatParser:
                 else:
                     headers[key] = value
             
-            # 准备请求体
-            body_template = api_config['body_template']
-            body_json = body_template.replace('{messages}', json.dumps(messages))
-            body = json.loads(body_json)
+            # 将消息列表转换为单个提示文本
+            prompt_text = self._messages_to_prompt(messages)
             
-            # 发送请求
+            # 构建请求体 - 使用您指定的格式
+            body = {
+                "inputs": prompt_text,
+                "parameters": {
+                    "detail": True,
+                    "temperature": 0.1
+                }
+            }
+            
+            # 发送请求 - 使用您指定的方式
             response = requests.post(
                 api_config['url'],
                 headers=headers,
-                json=body,
+                data=json.dumps(body),
                 timeout=30
             )
             
             if response.status_code != 200:
                 error_msg = f"HTTP {response.status_code}: {response.text}"
-                print(f"❌ 自定义HTTP API调用失败: {error_msg}")
+                print(f"{safe_chars['error']} 自定义HTTP API调用失败: {error_msg}")
                 return None
             
-            # 解析响应
-            response_data = response.json()
-            response_parser = api_config['response_parser']
-            
-            # 检查是否有错误
-            if response_parser.get('error_field'):
-                error_path = response_parser['error_field'].split('.')
-                error_value = response_data
-                for key in error_path:
-                    if isinstance(error_value, dict) and key in error_value:
-                        error_value = error_value[key]
-                    else:
-                        error_value = None
-                        break
-                
-                if error_value:
-                    print(f"❌ 自定义HTTP API返回错误: {error_value}")
-                    return None
-            
-            # 提取内容
-            content_field = response_parser['content_field']
-            content_path = content_field.split('.')
-            content_value = response_data
-            
-            for key in content_path:
-                if isinstance(content_value, dict) and key in content_value:
-                    content_value = content_value[key]
-                elif isinstance(content_value, list) and key.isdigit():
-                    index = int(key)
-                    if 0 <= index < len(content_value):
-                        content_value = content_value[index]
-                    else:
-                        content_value = None
-                        break
-                else:
-                    content_value = None
-                    break
-            
-            if content_value is None:
-                print(f"❌ 无法从响应中提取内容，字段路径: {content_field}")
-                print(f"响应数据: {json.dumps(response_data, indent=2, ensure_ascii=False)}")
-                return None
-            
-            return content_value
+            # 直接返回响应文本
+            return response.text
             
         except Exception as e:
-            print(f"❌ 自定义HTTP API调用失败: {e}")
+            print(f"{safe_chars['error']} 自定义HTTP API调用失败: {e}")
             return None
     
     def _extract_json_from_response(self, response: str) -> Dict:

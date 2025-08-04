@@ -49,10 +49,10 @@ def log_ai_conversation():
     log_content.append("=" * 80)
     log_content.append("🤖 AI对话记录")
     log_content.append("=" * 80)
-    log_content.append(f"📅 时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    log_content.append(f"⏱️ 时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     log_content.append("")
     
-    log_content.append("📤 发送给AI的消息:")
+    log_content.append("ℹ️ 发送给AI的消息:")
     log_content.append("-" * 40)
     
     # 使用config/prompts.yaml中的prompt
@@ -88,7 +88,7 @@ def log_ai_conversation():
     if response.status_code == 200:
         result = response.json()
         
-        log_content.append("📥 AI回复内容:")
+        log_content.append("ℹ️ AI回复内容:")
         log_content.append("-" * 40)
         
         if result.get('success'):

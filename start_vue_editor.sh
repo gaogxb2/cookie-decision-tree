@@ -32,9 +32,18 @@ BACKEND_PID=$!
 # 等待后端启动
 sleep 3
 
-# 启动前端
+# 安装前端依赖并启动前端
+echo "📦 安装前端依赖..."
+cd web_editor_vue
+if [ ! -d "node_modules" ]; then
+    echo "🔧 首次安装，正在安装 npm 依赖..."
+    npm install
+else
+    echo "✅ node_modules 已存在，跳过安装"
+fi
+
 echo "启动前端服务器..."
-cd web_editor_vue && npm run dev &
+npm run dev &
 FRONTEND_PID=$!
 
 # 等待用户中断
