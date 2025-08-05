@@ -13,36 +13,21 @@ CORS(app)
 # 检测操作系统，在 Windows 下使用安全的字符
 def get_safe_chars():
     """根据操作系统返回安全的字符"""
-    if platform.system() == 'Windows':
-        return {
-            'success': '[SUCCESS]',
-            'error': '[ERROR]',
-            'info': '[INFO]',
-            'warning': '[WARNING]',
-            'ai': '[AI]',
-            'time': '[TIME]',
-            'user': '[USER]',
-            'system': '[SYSTEM]',
-            'parse': '[PARSE]',
-            'save': '[SAVE]',
-            'separator': '=' * 80,
-            'sub_separator': '-' * 40
-        }
-    else:
-        return {
-            'success': '✅',
-            'error': '❌',
-            'info': 'ℹ️',
-            'warning': '⚠️',
-            'ai': '🤖',
-            'time': '⏱️',
-            'user': '👤',
-            'system': '🔧',
-            'parse': '🔍',
-            'save': '💾',
-            'separator': '=' * 80,
-            'sub_separator': '-' * 40
-        }
+    # 为了兼容性，在所有系统下都使用安全字符
+    return {
+        'success': '[SUCCESS]',
+        'error': '[ERROR]',
+        'info': '[INFO]',
+        'warning': '[WARNING]',
+        'ai': '[AI]',
+        'time': '[TIME]',
+        'user': '[USER]',
+        'system': '[SYSTEM]',
+        'parse': '[PARSE]',
+        'save': '[SAVE]',
+        'separator': '=' * 80,
+        'sub_separator': '-' * 40
+    }
 
 # 获取安全字符
 safe_chars = get_safe_chars()
