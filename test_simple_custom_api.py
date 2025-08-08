@@ -23,24 +23,24 @@ def test_simple_custom_api():
         }
     }
     
-    print("🔧 测试简单自定义 API 格式")
+    print(" 测试简单自定义 API 格式")
     print("=" * 50)
-    print(f"📤 请求 URL: {url}")
-    print(f"📤 请求头: {json.dumps(headers, indent=2, ensure_ascii=False)}")
-    print(f"📤 请求体: {json.dumps(body, indent=2, ensure_ascii=False)}")
+    print(f" 请求 URL: {url}")
+    print(f" 请求头: {json.dumps(headers, indent=2, ensure_ascii=False)}")
+    print(f" 请求体: {json.dumps(body, indent=2, ensure_ascii=False)}")
     print("=" * 50)
     
     # 模拟请求（实际使用时取消注释）
     # response = requests.post(url, headers=headers, data=json.dumps(body))
-    # print(f"📥 响应状态码: {response.status_code}")
-    # print(f"📥 响应内容: {response.text}")
+    # print(f" 响应状态码: {response.status_code}")
+    # print(f" 响应内容: {response.text}")
     
     # 模拟响应
     mock_response_text = "根据您的描述，电脑无法开机可能有以下几个原因：\n\n1. 电源问题：检查电源线是否连接正常\n2. 硬件问题：可能是内存条松动或硬盘故障\n3. 系统问题：可能是系统文件损坏\n\n建议按以下步骤排查：\n1. 检查电源连接\n2. 尝试重新插拔内存条\n3. 如果问题持续，建议联系专业维修人员"
     
-    print(f"📥 模拟响应: {mock_response_text}")
+    print(f" 模拟响应: {mock_response_text}")
     print("=" * 50)
-    print("✅ 简单自定义 API 格式测试完成！")
+    print("[OK] 简单自定义 API 格式测试完成！")
     print("\n📝 使用说明：")
     print("1. 将 url 替换为您的实际 API 地址")
     print("2. 将 'your-api-key' 替换为您的实际 API 密钥")

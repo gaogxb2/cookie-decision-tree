@@ -6,7 +6,7 @@ import json
 
 def debug_network_issue_position():
     """调试network_issue节点的位置计算"""
-    print("🔍 调试network_issue节点位置计算...")
+    print("[DEBUG] 调试network_issue节点位置计算...")
     print("=" * 80)
     
     try:
@@ -19,7 +19,7 @@ def debug_network_issue_position():
             
             # 分析network_issue节点
             network_issue = nodes.get('network_issue', {})
-            print("📊 network_issue节点信息:")
+            print("network_issue节点信息:")
             print("-" * 40)
             print(f"节点类型: {'解决方案' if 'solution' in network_issue else '决策节点'}")
             print(f"选项数量: {len(network_issue.get('options', []))}")
@@ -85,7 +85,7 @@ def debug_network_issue_position():
             for root in root_nodes:
                 calculate_levels(root)
             
-            print("\n📋 层级结构:")
+            print("\n层级结构:")
             for level in sorted(levels.keys()):
                 level_nodes = levels[level]
                 print(f"  层级 {level}: {len(level_nodes)} 个节点")
@@ -178,12 +178,12 @@ def debug_network_issue_position():
             print("3. 需要优化同层重新分布的逻辑")
             
         else:
-            print(f"❌ 获取决策树失败: {response.status_code}")
+            print(f"[ERROR] 获取决策树失败: {response.status_code}")
             
     except requests.exceptions.ConnectionError:
-        print("❌ 无法连接到后端服务")
+        print("[ERROR] 无法连接到后端服务")
     except Exception as e:
-        print(f"❌ 调试失败: {e}")
+        print(f"[ERROR] 调试失败: {e}")
 
 def main():
     debug_network_issue_position()

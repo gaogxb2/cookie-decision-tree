@@ -79,7 +79,7 @@ python test_simple_custom_api.py
 
 ## 功能特性
 
-### ✅ 已支持的功能
+### [OK] 已支持的功能
 
 1. **简单 HTTP POST 请求** - 使用 `requests.post()` 发送请求
 2. **自定义请求头** - 支持 Authorization 等自定义头部
@@ -88,7 +88,7 @@ python test_simple_custom_api.py
 5. **错误处理** - 完整的错误处理和日志记录
 6. **Windows 兼容** - 修复了 Windows 系统的编码问题
 
-### 🔧 消息转换逻辑
+###  消息转换逻辑
 
 系统会自动将对话消息转换为单个提示文本：
 
@@ -185,8 +185,8 @@ custom_http:
 
 ## 更新日志
 
-- ✅ 支持自定义 HTTP API 格式
-- ✅ 修复 Windows 编码问题
-- ✅ 简化配置项
-- ✅ 添加测试脚本
-- ✅ 完善错误处理 
+- [OK] 支持自定义 HTTP API 格式
+- [OK] 修复 Windows 编码问题
+- [OK] 简化配置项
+- [OK] 添加测试脚本
+- [OK] 完善错误处理 

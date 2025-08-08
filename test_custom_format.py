@@ -53,11 +53,11 @@ def test_custom_format():
     body_json = api_config['body_template'].replace('{prompt}', json.dumps(prompt_text))
     body = json.loads(body_json)
     
-    print("🔧 测试自定义 HTTP API 格式")
+    print("测试自定义 HTTP API 格式")
     print("=" * 50)
-    print(f"📤 请求 URL: {api_config['url']}")
-    print(f"📤 请求头: {json.dumps(api_config['headers'], indent=2, ensure_ascii=False)}")
-    print(f"📤 请求体: {json.dumps(body, indent=2, ensure_ascii=False)}")
+    print(f" 请求 URL: {api_config['url']}")
+    print(f" 请求头: {json.dumps(api_config['headers'], indent=2, ensure_ascii=False)}")
+    print(f" 请求体: {json.dumps(body, indent=2, ensure_ascii=False)}")
     print("=" * 50)
     
     # 模拟响应（实际使用时会被真实 API 调用替换）
@@ -65,9 +65,9 @@ def test_custom_format():
         "output": "根据您的描述，电脑无法开机可能有以下几个原因：\n\n1. 电源问题：检查电源线是否连接正常\n2. 硬件问题：可能是内存条松动或硬盘故障\n3. 系统问题：可能是系统文件损坏\n\n建议按以下步骤排查：\n1. 检查电源连接\n2. 尝试重新插拔内存条\n3. 如果问题持续，建议联系专业维修人员"
     }
     
-    print(f"📥 模拟响应: {json.dumps(mock_response, indent=2, ensure_ascii=False)}")
+    print(f" 模拟响应: {json.dumps(mock_response, indent=2, ensure_ascii=False)}")
     print("=" * 50)
-    print("✅ 自定义格式测试完成！")
+    print("[OK] 自定义格式测试完成！")
     print("\n📝 使用说明：")
     print("1. 将 api_config['url'] 替换为您的实际 API 地址")
     print("2. 将 'your-api-key' 替换为您的实际 API 密钥")

@@ -12,12 +12,12 @@ def test_config_loading():
     
     try:
         locator = ProblemLocator("config/decision_tree.yaml")
-        print("✅ 配置文件加载成功")
+        print("[OK] 配置文件加载成功")
         print(f"   根节点: {locator.current_node}")
         print(f"   节点数量: {len(locator.config['decision_tree']['nodes'])}")
         return True
     except Exception as e:
-        print(f"❌ 配置文件加载失败: {e}")
+        print(f"[ERROR] 配置文件加载失败: {e}")
         return False
 
 def test_fuzzy_matching():
@@ -46,12 +46,12 @@ def test_fuzzy_matching():
     for user_input, option_text, expected_score in test_cases:
         score = locator._fuzzy_match(user_input, option_text)
         if score >= expected_score * 0.8:  # 允许20%的误差
-            print(f"✅ '{user_input}' 匹配 '{option_text}': {score:.2f}")
+            print(f"[OK] '{user_input}' 匹配 '{option_text}': {score:.2f}")
             passed += 1
         else:
-            print(f"❌ '{user_input}' 匹配 '{option_text}': {score:.2f} (期望: {expected_score})")
+            print(f"[ERROR] '{user_input}' 匹配 '{option_text}': {score:.2f} (期望: {expected_score})")
     
-    print(f"\n📊 匹配测试结果: {passed}/{total} 通过")
+    print(f"\n 匹配测试结果: {passed}/{total} 通过")
     return passed == total
 
 def test_node_traversal():
@@ -77,7 +77,7 @@ def test_node_traversal():
             print(f"下一个节点: {first_option.get('next_node', 'N/A')}")
             return True
     
-    print("❌ 节点遍历测试失败")
+    print("[ERROR] 节点遍历测试失败")
     return False
 
 def test_diagnostic_path():
@@ -99,13 +99,13 @@ def test_diagnostic_path():
             for option in node_info['options']:
                 if option['text'] == choice:
                     locator._move_to_next_node(option)
-                    print(f"✅ 选择 '{choice}' -> 节点 '{locator.current_node}'")
+                    print(f"[OK] 选择 '{choice}' -> 节点 '{locator.current_node}'")
                     break
             else:
-                print(f"❌ 找不到选项 '{choice}'")
+                print(f"[ERROR] 找不到选项 '{choice}'")
                 return False
     
-    print(f"📋 诊断路径: {len(locator.diagnostic_path)} 步")
+    print(f" 诊断路径: {len(locator.diagnostic_path)} 步")
     for i, step in enumerate(locator.diagnostic_path, 1):
         print(f"  {i}. {step['choice']} -> {step['next_node']}")
     
@@ -113,7 +113,7 @@ def test_diagnostic_path():
 
 def main():
     """主测试函数"""
-    print("🔍 问题定位器功能测试")
+    print("[DEBUG] 问题定位器功能测试")
     print("=" * 50)
     
     tests = [
@@ -131,21 +131,21 @@ def main():
             if test_func():
                 passed += 1
             else:
-                print(f"❌ {test_name} 测试失败")
+                print(f"[ERROR] {test_name} 测试失败")
         except Exception as e:
-            print(f"❌ {test_name} 测试异常: {e}")
+            print(f"[ERROR] {test_name} 测试异常: {e}")
     
     print("\n" + "=" * 50)
-    print(f"📊 测试结果: {passed}/{total} 通过")
+    print(f" 测试结果: {passed}/{total} 通过")
     
     if passed == total:
-        print("🎉 所有测试通过！问题定位器可以正常使用。")
-        print("\n🚀 启动命令:")
+        print(" 所有测试通过！问题定位器可以正常使用。")
+        print("\n 启动命令:")
         print("  macOS/Linux: ./start_locator.sh")
         print("  Windows: start_locator.bat")
         print("  直接运行: python problem_locator.py")
     else:
-        print("⚠️ 部分测试失败，请检查配置和代码。")
+        print("[WARNING] 部分测试失败，请检查配置和代码。")
 
 if __name__ == "__main__":
     main() 

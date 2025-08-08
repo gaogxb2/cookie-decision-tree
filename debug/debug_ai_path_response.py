@@ -6,7 +6,7 @@ import json
 
 def debug_ai_path_response():
     """调试AI的路径响应"""
-    print("🔍 调试AI路径响应...")
+    print("[DEBUG] 调试AI路径响应...")
     
     # 测试聊天记录
     chat_history = """
@@ -37,25 +37,25 @@ def debug_ai_path_response():
         
         if response.status_code == 200:
             result = response.json()
-            print("📋 AI原始响应:")
+            print("AI原始响应:")
             print(json.dumps(result, ensure_ascii=False, indent=2))
             
             if result.get('success'):
                 new_nodes = result.get('new_nodes', {})
-                print("\n🔍 响应结构分析:")
-                print(f"  problem: {'✅' if 'problem' in new_nodes else '❌'}")
-                print(f"  steps: {'✅' if 'steps' in new_nodes else '❌'}")
-                print(f"  solution: {'✅' if 'solution' in new_nodes else '❌'}")
-                print(f"  nodes: {'✅' if 'nodes' in new_nodes else '❌'}")
-                print(f"  entry_node: {'✅' if 'entry_node' in new_nodes else '❌'}")
+                print("\n[DEBUG] 响应结构分析:")
+                print(f"  problem: {'[OK]' if 'problem' in new_nodes else '[ERROR]'}")
+                print(f"  steps: {'[OK]' if 'steps' in new_nodes else '[ERROR]'}")
+                print(f"  solution: {'[OK]' if 'solution' in new_nodes else '[ERROR]'}")
+                print(f"  nodes: {'[OK]' if 'nodes' in new_nodes else '[ERROR]'}")
+                print(f"  entry_node: {'[OK]' if 'entry_node' in new_nodes else '[ERROR]'}")
                 
                 if 'steps' in new_nodes:
                     steps = new_nodes['steps']
-                    print(f"\n📋 路径步骤 ({len(steps)} 步):")
+                    print(f"\n路径步骤 ({len(steps)} 步):")
                     for step in steps:
                         print(f"  步骤 {step.get('step', 'N/A')}: {step.get('question', 'N/A')} -> {step.get('answer', 'N/A')}")
                 elif 'nodes' in new_nodes:
-                    print(f"\n⚠️ AI返回了决策树结构而不是路径")
+                    print(f"\nAI返回了决策树结构而不是路径")
                     nodes = new_nodes['nodes']
                     print(f"  节点数量: {len(nodes)}")
                     
@@ -66,12 +66,12 @@ def debug_ai_path_response():
                     else:
                         print("  没有发现路径节点")
             else:
-                print(f"❌ AI处理失败: {result.get('error')}")
+                print(f"[ERROR] AI处理失败: {result.get('error')}")
         else:
-            print(f"❌ 请求失败: {response.status_code}")
+            print(f"[ERROR] 请求失败: {response.status_code}")
             
     except Exception as e:
-        print(f"❌ 调试失败: {e}")
+        print(f"[ERROR] 调试失败: {e}")
 
 if __name__ == "__main__":
     debug_ai_path_response() 

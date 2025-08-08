@@ -21,7 +21,7 @@ class ProblemLocator:
             with open(self.config_file, 'r', encoding='utf-8') as f:
                 return yaml.safe_load(f)
         except Exception as e:
-            print(f"❌ 加载配置文件失败: {e}")
+            print(f"[ERROR] 加载配置文件失败: {e}")
             sys.exit(1)
     
     def _fuzzy_match(self, user_input: str, option_text: str) -> float:
@@ -75,13 +75,13 @@ class ProblemLocator:
         """显示当前问题"""
         node_data = self._get_node_info(self.current_node)
         if not node_data:
-            print(f"❌ 错误: 找不到节点 '{self.current_node}'")
+            print(f"[ERROR] 错误: 找不到节点 '{self.current_node}'")
             return False
         
         if 'solution' in node_data:
             # 这是一个解决方案节点
             print("\n" + "=" * 60)
-            print("✅ 问题定位完成！")
+            print("[OK] 问题定位完成！")
             print("=" * 60)
             print(f"💡 解决方案:")
             print("-" * 40)
@@ -96,14 +96,14 @@ class ProblemLocator:
                 print(f"  {i}. {option['text']}")
             return False
         else:
-            print(f"❌ 错误: 节点 '{self.current_node}' 格式不正确")
+            print(f"[ERROR] 错误: 节点 '{self.current_node}' 格式不正确")
             return False
     
     def _process_user_input(self, user_input: str) -> bool:
         """处理用户输入"""
         node_data = self._get_node_info(self.current_node)
         if not node_data or 'options' not in node_data:
-            print("❌ 当前节点没有选项")
+            print("[ERROR] 当前节点没有选项")
             return False
         
         # 尝试数字匹配
@@ -120,18 +120,18 @@ class ProblemLocator:
         best_match = self._find_best_match(user_input, node_data['options'])
         if best_match:
             index, selected_option = best_match
-            print(f"✅ 匹配到选项: {selected_option['text']}")
+            print(f"[OK] 匹配到选项: {selected_option['text']}")
             self._move_to_next_node(selected_option)
             return True
         else:
-            print("❌ 无法匹配您的输入，请重新选择")
+            print("[ERROR] 无法匹配您的输入，请重新选择")
             return False
     
     def _move_to_next_node(self, selected_option: Dict):
         """移动到下一个节点"""
         next_node = selected_option.get('next_node')
         if not next_node:
-            print("❌ 选项没有指向下一个节点")
+            print("[ERROR] 选项没有指向下一个节点")
             return
         
         # 记录诊断路径
@@ -149,7 +149,7 @@ class ProblemLocator:
         if not self.diagnostic_path:
             return
         
-        print(f"\n📋 诊断路径:")
+        print(f"\n 诊断路径:")
         print("-" * 40)
         for i, step in enumerate(self.diagnostic_path, 1):
             print(f"{i}. {step['choice']}")
@@ -158,7 +158,7 @@ class ProblemLocator:
     def start_diagnostic(self):
         """开始问题诊断"""
         print("=" * 60)
-        print("🔍 AI问题定位系统")
+        print("[DEBUG] AI问题定位系统")
         print("=" * 60)
         print("欢迎使用AI问题定位系统！")
         print("系统将根据您的回答，逐步定位问题并提供解决方案。")
@@ -199,9 +199,9 @@ class ProblemLocator:
                         # 返回上一步
                         last_step = self.diagnostic_path.pop()
                         self.current_node = self._find_previous_node(last_step['node'])
-                        print(f"↩️ 已返回上一步: {last_step['choice']}")
+                        print(f"[BACK] 已返回上一步: {last_step['choice']}")
                     else:
-                        print("❌ 没有可返回的步骤")
+                        print("[ERROR] 没有可返回的步骤")
                     continue
                 
                 # 处理用户输入
@@ -212,7 +212,7 @@ class ProblemLocator:
                 print("\n\n程序被中断。再见！")
                 break
             except Exception as e:
-                print(f"\n❌ 发生错误: {e}")
+                print(f"\n[ERROR] 发生错误: {e}")
                 continue
     
     def _find_previous_node(self, current_node: str) -> str:
@@ -234,7 +234,7 @@ def main():
         # 检查配置文件是否存在
         config_file = "config/decision_tree.yaml"
         if not os.path.exists(config_file):
-            print(f"❌ 错误: 配置文件 {config_file} 不存在")
+            print(f"[ERROR] 错误: 配置文件 {config_file} 不存在")
             print("请确保配置文件存在并且格式正确。")
             return
         
@@ -243,7 +243,7 @@ def main():
         locator.start_diagnostic()
         
     except Exception as e:
-        print(f"❌ 系统启动失败: {e}")
+        print(f"[ERROR] 系统启动失败: {e}")
         print("请检查配置文件格式是否正确。")
 
 if __name__ == "__main__":

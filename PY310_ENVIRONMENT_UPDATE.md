@@ -7,38 +7,38 @@
 ## 📝 修改的脚本
 
 ### 1. `start_all.sh` - 主启动脚本
-- ✅ 添加py310环境切换
-- ✅ 添加依赖检查
-- ✅ 优化启动流程
+- [OK] 添加py310环境切换
+- [OK] 添加依赖检查
+- [OK] 优化启动流程
 
 ### 2. `start_backend.sh` - 后端启动脚本
-- ✅ 添加py310环境切换
-- ✅ 添加依赖检查
-- ✅ 简化启动命令
+- [OK] 添加py310环境切换
+- [OK] 添加依赖检查
+- [OK] 简化启动命令
 
 ### 3. `start_frontend.sh` - 前端启动脚本
-- ✅ 添加py310环境切换
-- ✅ 保持环境一致性
+- [OK] 添加py310环境切换
+- [OK] 保持环境一致性
 
 ### 4. `start_vue_editor.sh` - Vue编辑器启动脚本
-- ✅ 添加py310环境切换
-- ✅ 添加依赖检查
-- ✅ 优化进程管理
+- [OK] 添加py310环境切换
+- [OK] 添加依赖检查
+- [OK] 优化进程管理
 
 ### 5. `start_locator.sh` - 问题定位器启动脚本
-- ✅ 添加py310环境切换
-- ✅ 添加依赖检查
+- [OK] 添加py310环境切换
+- [OK] 添加依赖检查
 
 ### 6. `start_locator.bat` - Windows问题定位器启动脚本
-- ✅ 添加py310环境切换
-- ✅ 添加依赖检查
+- [OK] 添加py310环境切换
+- [OK] 添加依赖检查
 
 ### 7. `start_ai_augmentor.sh` - AI增强器启动脚本
-- ✅ 优化py310环境切换
-- ✅ 添加依赖检查
-- ✅ 保持API密钥检查
+- [OK] 优化py310环境切换
+- [OK] 添加依赖检查
+- [OK] 保持API密钥检查
 
-## 🚀 使用方法
+## 使用方法
 
 ### 启动完整系统
 ```bash
@@ -70,7 +70,7 @@
 ./start_ai_augmentor.sh
 ```
 
-## 🔧 环境要求
+## 环境要求
 
 ### 必需的环境变量
 ```bash
@@ -82,7 +82,7 @@ export DASHSCOPE_API_KEY='your-api-key-here'
 pip install pyyaml openai requests
 ```
 
-## 📊 验证步骤
+## 验证步骤
 
 1. **检查环境**
    ```bash
@@ -97,7 +97,7 @@ pip install pyyaml openai requests
 
 3. **检查依赖**
    ```bash
-   python -c "import yaml, openai, requests; print('✅ 依赖正常')"
+   python -c "import yaml, openai, requests; print('[OK] 依赖正常')"
    ```
 
 4. **测试启动**
@@ -105,7 +105,7 @@ pip install pyyaml openai requests
    ./start_all.sh
    ```
 
-## 🎯 AI增强功能
+## AI增强功能
 
 ### 在Web编辑器中使用AI增强
 
@@ -118,7 +118,7 @@ pip install pyyaml openai requests
    - 打开浏览器访问: http://localhost:3000
 
 3. **使用AI增强**
-   - 在编辑器中切换到"🤖 AI增强"标签页
+   - 在编辑器中切换到"[AI] AI增强"标签页
    - 点击"添加聊天记录"按钮
    - 输入聊天记录
    - 点击"开始处理"
@@ -137,7 +137,7 @@ pip install pyyaml openai requests
 ./start_ai_augmentor.sh --mode file --input chat.txt --auto
 ```
 
-## 🔍 故障排除
+## [DEBUG] 故障排除
 
 ### 问题1: conda activate失败
 ```bash
@@ -175,7 +175,7 @@ lsof -ti:5000 | xargs kill -9
 - 使用py310环境，确保最佳性能
 - 依赖包版本已固定，避免兼容性问题
 
-## 🔮 未来改进
+## 未来改进
 
 1. **自动化环境检查**
    - 自动检测并修复环境问题

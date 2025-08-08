@@ -27,7 +27,7 @@ class TreeConfirmationUI:
             with open(config_file, 'r', encoding='utf-8') as f:
                 return yaml.safe_load(f)
         except Exception as e:
-            print(f"❌ 加载配置文件失败: {e}")
+            print(f"[ERROR] 加载配置文件失败: {e}")
             sys.exit(1)
     
     def show_confirmation_dialog(self, original_tree: Dict, new_nodes: Dict, 

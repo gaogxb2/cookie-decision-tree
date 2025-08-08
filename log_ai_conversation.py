@@ -14,7 +14,7 @@ def load_prompts():
             prompts = yaml.safe_load(f)
         return prompts
     except Exception as e:
-        print(f"❌ 加载prompts失败: {e}")
+        print(f"[ERROR] 加载prompts失败: {e}")
         return None
 
 def log_ai_conversation():
@@ -24,7 +24,7 @@ def log_ai_conversation():
     # 加载prompts配置
     prompts = load_prompts()
     if not prompts:
-        print("❌ 无法加载prompts配置")
+        print("[ERROR] 无法加载prompts配置")
         return
     
     # 测试聊天记录
@@ -47,22 +47,22 @@ def log_ai_conversation():
     # 构建日志内容
     log_content = []
     log_content.append("=" * 80)
-    log_content.append("🤖 AI对话记录")
+    log_content.append("[AI] AI对话记录")
     log_content.append("=" * 80)
-    log_content.append(f"⏱️ 时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    log_content.append(f"[TIME] 时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     log_content.append("")
     
-    log_content.append("ℹ️ 发送给AI的消息:")
+    log_content.append("[INFO] 发送给AI的消息:")
     log_content.append("-" * 40)
     
     # 使用config/prompts.yaml中的prompt
     system_prompt = prompts['chat_analysis']['system']
     user_prompt = prompts['chat_analysis']['user'].format(chat_history=chat_history)
     
-    log_content.append("🔧 System Prompt:")
+    log_content.append("[SYSTEM] System Prompt:")
     log_content.append(system_prompt)
     log_content.append("")
-    log_content.append("👤 User Prompt:")
+    log_content.append("[USER] User Prompt:")
     log_content.append(user_prompt)
     log_content.append("")
     
@@ -82,27 +82,27 @@ def log_ai_conversation():
     end_time = time.time()
     processing_time = end_time - start_time
     
-    log_content.append(f"⏱️ 处理时间: {processing_time:.2f}秒")
+    log_content.append(f"[TIME] 处理时间: {processing_time:.2f}秒")
     log_content.append("")
     
     if response.status_code == 200:
         result = response.json()
         
-        log_content.append("ℹ️ AI回复内容:")
+        log_content.append("[INFO] AI回复内容:")
         log_content.append("-" * 40)
         
         if result.get('success'):
             new_nodes = result.get('new_nodes', {})
             
             # 记录AI生成的节点结构
-            log_content.append("🎯 AI生成的决策树节点:")
+            log_content.append("AI生成的决策树节点:")
             log_content.append(json.dumps(new_nodes, ensure_ascii=False, indent=2))
             
             # 记录变更信息
             changes = result.get('changes', [])
             if changes:
                 log_content.append("")
-                log_content.append("📋 变更列表:")
+                log_content.append("变更列表:")
                 for change in changes:
                     log_content.append(f"  - {change['text']} ({change['type']})")
             
@@ -112,13 +112,13 @@ def log_ai_conversation():
                 log_content.append("")
                 log_content.append(f"💬 消息: {message}")
         else:
-            log_content.append(f"❌ AI处理失败: {result.get('error')}")
+            log_content.append(f"[ERROR] AI处理失败: {result.get('error')}")
     else:
-        log_content.append(f"❌ 请求失败: {response.status_code}")
+        log_content.append(f"[ERROR] 请求失败: {response.status_code}")
     
     log_content.append("")
     log_content.append("=" * 80)
-    log_content.append("✅ 对话记录完成")
+    log_content.append("[OK] 对话记录完成")
     log_content.append("=" * 80)
     
     # 保存到文件
@@ -128,7 +128,7 @@ def log_ai_conversation():
     with open(filename, 'w', encoding='utf-8') as f:
         f.write('\n'.join(log_content))
     
-    print(f"💾 对话记录已保存到: {filename}")
+    print(f"[SAVE] 对话记录已保存到: {filename}")
     
     # 同时在控制台显示
     print('\n'.join(log_content))

@@ -8,7 +8,7 @@ from datetime import datetime
 
 def test_old_ai_api():
     """测试旧的AI API（开始AI分析按钮使用的API）"""
-    print("🔍 测试'开始AI分析'按钮使用的API...")
+    print("[DEBUG] 测试'开始AI分析'按钮使用的API...")
     print("=" * 80)
     
     # 测试聊天记录
@@ -28,7 +28,7 @@ def test_old_ai_api():
 用户: 更新后可以连接了，谢谢
     """
     
-    print("ℹ️ 发送请求到 /api/ai/process-chat...")
+    print("[INFO] 发送请求到 /api/ai/process-chat...")
     print("-" * 40)
     
     try:
@@ -42,27 +42,27 @@ def test_old_ai_api():
             timeout=30
         )
         
-        print(f"ℹ️ 响应状态码: {response.status_code}")
+        print(f"[INFO] 响应状态码: {response.status_code}")
         print()
         
         if response.status_code == 200:
             result = response.json()
             
             if result.get('success'):
-                print("✅ AI处理成功!")
+                print("[OK] AI处理成功!")
                 print()
                 
                 # 显示路径数据
                 if 'path_data' in result:
                     path_data = result['path_data']
-                    print("📋 AI解析的路径数据:")
+                    print(" AI解析的路径数据:")
                     print(json.dumps(path_data, ensure_ascii=False, indent=2))
                     print()
                 
                 # 显示新节点数据
                 if 'new_nodes' in result:
                     new_nodes = result['new_nodes']
-                    print("🔍 AI生成的节点数据:")
+                    print("[DEBUG] AI生成的节点数据:")
                     print(json.dumps(new_nodes, ensure_ascii=False, indent=2))
                     print()
                 
@@ -76,27 +76,27 @@ def test_old_ai_api():
                 
                 print(f"💬 消息: {result.get('message', 'N/A')}")
                 print()
-                print("⚠️ 注意: 这个API可能会发送决策树给AI!")
+                print("[WARNING] 注意: 这个API可能会发送决策树给AI!")
                 
             else:
-                print(f"❌ AI处理失败: {result.get('error', '未知错误')}")
+                print(f"[ERROR] AI处理失败: {result.get('error', '未知错误')}")
         else:
-            print(f"❌ 请求失败: {response.status_code}")
+            print(f"[ERROR] 请求失败: {response.status_code}")
             print(f"响应内容: {response.text}")
             
     except requests.exceptions.Timeout:
-        print("❌ 请求超时")
+        print("[ERROR] 请求超时")
     except requests.exceptions.ConnectionError:
-        print("❌ 连接失败，请检查后端服务是否运行")
+        print("[ERROR] 连接失败，请检查后端服务是否运行")
     except Exception as e:
-        print(f"❌ 请求异常: {e}")
+        print(f"[ERROR] 请求异常: {e}")
 
 def compare_apis():
     """比较两个API的差异"""
-    print("\n🔍 比较两个API的差异...")
+    print("\n[DEBUG] 比较两个API的差异...")
     print("=" * 80)
     
-    print("📋 API对比:")
+    print(" API对比:")
     print()
     print("1. '开始AI分析'按钮 (/api/ai/process-chat):")
     print("   - 可能发送决策树给AI")
@@ -112,7 +112,7 @@ def compare_apis():
     print("💡 建议: 使用'直接AI分析'按钮，更安全且功能更完整")
 
 def main():
-    print("🚀 测试前端AI API...")
+    print(" 测试前端AI API...")
     print("=" * 80)
     
     # 测试旧的AI API
@@ -122,11 +122,11 @@ def main():
     compare_apis()
     
     print("\n" + "=" * 80)
-    print("✅ 测试完成!")
+    print("[OK] 测试完成!")
     print("\n📝 总结:")
-    print("  ✅ '开始AI分析'按钮使用 /api/ai/process-chat")
-    print("  ✅ '直接AI分析'按钮使用 /api/ai/direct-process")
-    print("  ⚠️  建议使用'直接AI分析'按钮（更安全）")
+    print("  [OK] '开始AI分析'按钮使用 /api/ai/process-chat")
+    print("  [OK] '直接AI分析'按钮使用 /api/ai/direct-process")
+    print("  [WARNING]  建议使用'直接AI分析'按钮（更安全）")
 
 if __name__ == "__main__":
     main() 

@@ -21,7 +21,7 @@ class DirectAICaller:
             with open(config_file, 'r', encoding='utf-8') as f:
                 return yaml.safe_load(f)
         except Exception as e:
-            print(f"❌ 加载配置文件失败: {e}")
+            print(f"[ERROR] 加载配置文件失败: {e}")
             return {}
     
     def _init_ai_client(self):
@@ -67,7 +67,7 @@ class DirectAICaller:
                 raise ValueError(f"不支持的API类型: {api_type}")
                 
         except Exception as e:
-            print(f"❌ 初始化AI客户端失败: {e}")
+            print(f"[ERROR] 初始化AI客户端失败: {e}")
             return None
     
     def _call_ai_api(self, messages: list, model: str = None) -> str:
@@ -87,12 +87,12 @@ class DirectAICaller:
             return response.choices[0].message.content
                 
         except Exception as e:
-            print(f"❌ AI API调用失败: {e}")
+            print(f"[ERROR] AI API调用失败: {e}")
             return None
     
     def parse_chat_to_path(self, chat_history: str) -> dict:
         """直接解析聊天记录为路径"""
-        print("🔍 直接解析聊天记录为路径...")
+        print("[DEBUG] 直接解析聊天记录为路径...")
         
         system_prompt = self.prompts['chat_analysis']['system']
         user_prompt = self.prompts['chat_analysis']['user'].format(
@@ -112,13 +112,13 @@ class DirectAICaller:
             # 解析AI响应
             path_data = self._extract_json_from_response(response)
             if not path_data:
-                print("❌ 无法解析AI响应")
+                print("[ERROR] 无法解析AI响应")
                 return None
             
             return path_data
             
         except Exception as e:
-            print(f"❌ 解析失败: {e}")
+            print(f"[ERROR] 解析失败: {e}")
             return None
     
     def _extract_json_from_response(self, response: str) -> dict:
@@ -249,9 +249,9 @@ class DirectAICaller:
             existing_options = [opt['text'] for opt in existing_nodes[existing_root]['options']]
             if new_option['text'] not in existing_options:
                 existing_nodes[existing_root]['options'].append(new_option)
-                print(f"✅ 已添加新选项: {new_option['text']} -> {entry_node}")
+                print(f"[OK] 已添加新选项: {new_option['text']} -> {entry_node}")
             else:
-                print(f"⚠️ 选项已存在: {new_option['text']}")
+                print(f"[WARNING] 选项已存在: {new_option['text']}")
         
         # 合并所有新节点
         existing_nodes.update(new_nodes_dict)
@@ -263,7 +263,7 @@ class DirectAICaller:
 
 def main():
     """测试直接AI调用"""
-    print("🚀 测试直接AI调用...")
+    print(" 测试直接AI调用...")
     
     # 测试聊天记录
     chat_history = """
@@ -286,23 +286,23 @@ def main():
     caller = DirectAICaller()
     
     # 1. 直接解析聊天记录为路径
-    print("\n📋 步骤1: 解析聊天记录为路径")
+    print("\n 步骤1: 解析聊天记录为路径")
     path_data = caller.parse_chat_to_path(chat_history)
     
     if path_data:
-        print("✅ 路径解析成功:")
+        print("[OK] 路径解析成功:")
         print(json.dumps(path_data, ensure_ascii=False, indent=2))
         
         # 2. 转换为节点结构
-        print("\n📋 步骤2: 转换为节点结构")
+        print("\n 步骤2: 转换为节点结构")
         nodes = caller.convert_path_to_nodes(path_data)
         
         if nodes:
-            print("✅ 节点转换成功:")
+            print("[OK] 节点转换成功:")
             print(json.dumps(nodes, ensure_ascii=False, indent=2))
             
             # 3. 合并到现有决策树
-            print("\n📋 步骤3: 合并到现有决策树")
+            print("\n 步骤3: 合并到现有决策树")
             
             # 加载现有决策树
             try:
@@ -312,7 +312,7 @@ def main():
                 
                 merged_tree = caller.merge_to_existing_tree(nodes, existing_tree)
                 
-                print("✅ 合并成功:")
+                print("[OK] 合并成功:")
                 print(f"  新节点数量: {len(nodes['nodes'])}")
                 print(f"  总节点数量: {len(merged_tree['nodes'])}")
                 
@@ -320,14 +320,14 @@ def main():
                 with open('config/decision_tree.yaml', 'w', encoding='utf-8') as f:
                     yaml.dump({'decision_tree': merged_tree}, f, default_flow_style=False, allow_unicode=True, indent=2)
                 
-                print("💾 已保存到 config/decision_tree.yaml")
+                print("[SAVE] 已保存到 config/decision_tree.yaml")
                 
             except Exception as e:
-                print(f"❌ 合并失败: {e}")
+                print(f"[ERROR] 合并失败: {e}")
         else:
-            print("❌ 节点转换失败")
+            print("[ERROR] 节点转换失败")
     else:
-        print("❌ 路径解析失败")
+        print("[ERROR] 路径解析失败")
 
 if __name__ == "__main__":
     main() 

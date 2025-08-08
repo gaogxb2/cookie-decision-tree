@@ -24,16 +24,16 @@ def get_safe_chars():
         }
     else:
         return {
-            'success': '✅',
-            'error': '❌',
-            'info': 'ℹ️',
-            'warning': '⚠️',
-            'ai': '🤖',
-            'time': '⏱️',
-            'user': '👤',
-            'system': '🔧',
-            'parse': '🔍',
-            'save': '💾',
+            'success': '[SUCCESS]',
+            'error': '[ERROR]',
+            'info': '[INFO]',
+            'warning': '[WARNING]',
+            'ai': '[AI]',
+            'time': '[TIME]',
+            'user': '[USER]',
+            'system': '[SYSTEM]',
+            'parse': '[PARSE]',
+            'save': '[SAVE]',
             'separator': '=' * 80,
             'sub_separator': '-' * 40
         }
@@ -48,21 +48,16 @@ def fix_unicode_chars_in_file(file_path):
         
         # 替换 Unicode 表情符号
         replacements = [
-            ('❌', safe_chars['error']),
-            ('✅', safe_chars['success']),
-            ('ℹ️', safe_chars['info']),
-            ('⚠️', safe_chars['warning']),
-            ('🤖', safe_chars['ai']),
-            ('⏱️', safe_chars['time']),
-            ('👤', safe_chars['user']),
-            ('🔧', safe_chars['system']),
-            ('🔍', safe_chars['parse']),
-            ('💾', safe_chars['save']),
-            ('⏱️', safe_chars['time']),
-            ('ℹ️', safe_chars['info']),
-            ('ℹ️', safe_chars['info']),
-            ('ℹ️', safe_chars['info']),
-            ('🔧', safe_chars['system']),
+            ('[ERROR]', safe_chars['error']),
+            ('[OK]', safe_chars['success']),
+            ('[INFO]', safe_chars['info']),
+            ('[WARNING]', safe_chars['warning']),
+            ('[AI]', safe_chars['ai']),
+            ('[TIME]', safe_chars['time']),
+            ('[USER]', safe_chars['user']),
+            ('', safe_chars['system']),
+            ('[DEBUG]', safe_chars['parse']),
+            ('[SAVE]', safe_chars['save']),
         ]
         
         modified = False
@@ -95,7 +90,7 @@ def find_python_files(directory):
 
 def main():
     """主函数"""
-    print("🔧 开始修复 Unicode 字符编码问题...")
+    print("开始修复 Unicode 字符编码问题...")
     
     # 获取当前目录
     current_dir = os.getcwd()
@@ -109,7 +104,7 @@ def main():
     for file_path in python_files:
         fix_unicode_chars_in_file(file_path)
     
-    print("🎉 Unicode 字符修复完成！")
+    print("Unicode 字符修复完成！")
     print(f"在 {platform.system()} 系统上，已使用安全的字符替换 Unicode 表情符号")
 
 if __name__ == '__main__':

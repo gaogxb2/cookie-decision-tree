@@ -40,18 +40,18 @@ def test_ai_integration():
         if response.status_code == 200:
             result = response.json()
             if result.get('success'):
-                print("✅ AI处理接口正常")
-                print(f"📊 生成变更: {len(result.get('changes', []))}")
+                print("[OK] AI处理接口正常")
+                print(f" 生成变更: {len(result.get('changes', []))}")
                 return True
             else:
-                print(f"❌ AI处理失败: {result.get('error')}")
+                print(f"[ERROR] AI处理失败: {result.get('error')}")
                 return False
         else:
-            print(f"❌ API请求失败: {response.status_code}")
+            print(f"[ERROR] API请求失败: {response.status_code}")
             return False
             
     except Exception as e:
-        print(f"❌ 测试失败: {e}")
+        print(f"[ERROR] 测试失败: {e}")
         return False
 
 def test_web_editor():
@@ -60,18 +60,18 @@ def test_web_editor():
         print("🌐 测试Web编辑器...")
         response = requests.get('http://localhost:3000')
         if response.status_code == 200:
-            print("✅ Web编辑器可访问")
+            print("[OK] Web编辑器可访问")
             return True
         else:
-            print(f"❌ Web编辑器不可访问: {response.status_code}")
+            print(f"[ERROR] Web编辑器不可访问: {response.status_code}")
             return False
     except Exception as e:
-        print(f"❌ Web编辑器测试失败: {e}")
+        print(f"[ERROR] Web编辑器测试失败: {e}")
         return False
 
 def main():
     """主测试函数"""
-    print("🚀 开始AI增强功能集成测试...")
+    print(" 开始AI增强功能集成测试...")
     
     # 测试Web编辑器
     web_ok = test_web_editor()
@@ -79,16 +79,16 @@ def main():
     # 测试AI接口
     ai_ok = test_ai_integration()
     
-    print("\n📋 测试结果:")
-    print(f"  Web编辑器: {'✅ 正常' if web_ok else '❌ 异常'}")
-    print(f"  AI增强接口: {'✅ 正常' if ai_ok else '❌ 异常'}")
+    print("\n 测试结果:")
+    print(f"  Web编辑器: {'[OK] 正常' if web_ok else '[ERROR] 异常'}")
+    print(f"  AI增强接口: {'[OK] 正常' if ai_ok else '[ERROR] 异常'}")
     
     if web_ok and ai_ok:
-        print("\n🎉 所有测试通过！")
+        print("\n 所有测试通过！")
         print("📱 请在浏览器中访问: http://localhost:3000")
-        print("🤖 在编辑器中切换到'AI增强'标签页进行测试")
+        print("[AI] 在编辑器中切换到'AI增强'标签页进行测试")
     else:
-        print("\n⚠️ 部分测试失败，请检查服务状态")
+        print("\n[WARNING] 部分测试失败，请检查服务状态")
 
 if __name__ == "__main__":
     main() 

@@ -1,10 +1,10 @@
-# 🤖 AI决策树增强器使用指南
+# [AI] AI决策树增强器使用指南
 
 ## 概述
 
 AI决策树增强器是一个智能系统，能够通过AI分析聊天记录，自动提取问题定位路径，并将其转换为决策树节点，支持可视化预览和用户确认后合并到现有决策树中。
 
-## 🎯 核心功能
+##  核心功能
 
 ### 1. AI聊天记录解析
 - **智能提取**: 自动识别问题定位的关键步骤
@@ -26,7 +26,7 @@ AI决策树增强器是一个智能系统，能够通过AI分析聊天记录，�
 - **逻辑验证**: 验证决策树的逻辑完整性
 - **备份机制**: 合并前自动创建备份
 
-## 🚀 快速开始
+##  快速开始
 
 ### 1. 环境准备
 
@@ -62,7 +62,7 @@ export OPENAI_API_KEY='your-api-key-here'
 ./start_ai_augmentor.sh --mode file --input chat.txt --auto
 ```
 
-## 📁 文件结构
+##  文件结构
 
 ```
 config/
@@ -77,7 +77,7 @@ ai_tree_augmentor.py    # 主控制器
 start_ai_augmentor.sh   # 启动脚本
 ```
 
-## 🔧 配置说明
+##  配置说明
 
 ### AI配置 (config/ai_config.yaml)
 
@@ -110,7 +110,7 @@ chat_analysis:
     请分析以下聊天记录...
 ```
 
-## 📋 使用流程
+##  使用流程
 
 ### 1. 准备聊天记录
 聊天记录格式：
@@ -152,7 +152,7 @@ chat_analysis:
 - 合并新节点到决策树
 - 更新配置文件
 
-## 🎨 可视化特性
+##  可视化特性
 
 ### 颜色编码
 - **白色**: 原始节点
@@ -165,7 +165,7 @@ chat_analysis:
 - **缩放平移**: 鼠标操作视图
 - **搜索定位**: 快速找到特定节点
 
-## 🔍 高级功能
+## [DEBUG] 高级功能
 
 ### 批量处理
 ```bash
@@ -185,7 +185,7 @@ chat_analysis:
 - 可视化样式
 - 提示词内容
 
-## 📊 输出文件
+##  输出文件
 
 ### 可视化文件
 - `tree_visualization.html`: 决策树可视化页面
@@ -195,7 +195,7 @@ chat_analysis:
 - `decision_tree.yaml.backup`: 合并前的备份
 - `backup_YYYYMMDD_HHMMSS/`: 时间戳备份目录
 
-## 🛠️ 故障排除
+## 故障排除
 
 ### 常见问题
 
@@ -223,7 +223,7 @@ A: 系统会验证逻辑完整性，根据提示修复
 python ai_tree_augmentor.py --mode interactive --debug
 ```
 
-## 🔮 扩展功能
+##  扩展功能
 
 ### 1. 多语言支持
 - 支持中文、英文聊天记录
@@ -262,7 +262,7 @@ python ai_tree_augmentor.py --mode interactive --debug
 - 增加内存配置
 - 优化网络连接
 
-## 🤝 贡献指南
+##  贡献指南
 
 ### 开发环境
 1. 克隆项目
@@ -282,7 +282,7 @@ python ai_tree_augmentor.py --mode interactive --debug
 - `docs`: 文档更新
 - `refactor`: 代码重构
 
-## 📞 技术支持
+##  技术支持
 
 ### 获取帮助
 - 查看完整文档

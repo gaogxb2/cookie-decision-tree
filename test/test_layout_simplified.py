@@ -6,7 +6,7 @@ import json
 
 def test_simplified_layout():
     """测试简化后的布局算法"""
-    print("🔧 测试简化后的布局算法...")
+    print(" 测试简化后的布局算法...")
     print("=" * 80)
     
     try:
@@ -17,7 +17,7 @@ def test_simplified_layout():
             tree_data = response.json()
             nodes = tree_data.get('nodes', {})
             
-            print("📊 决策树节点分析:")
+            print(" 决策树节点分析:")
             print("-" * 40)
             print(f"总节点数: {len(nodes)}")
             
@@ -83,7 +83,7 @@ def test_simplified_layout():
             # 分析关键节点
             key_nodes = ['network_issue', 'software_issue', 'hardware_issue', 'performance_issue']
             
-            print("\n🔍 关键节点分析:")
+            print("\n[DEBUG] 关键节点分析:")
             print("-" * 40)
             
             for node_id in key_nodes:
@@ -111,27 +111,27 @@ def test_simplified_layout():
                         print(f"    理想父节点位置: x={avg_x:.1f}")
             
             # 检查层级分布
-            print("\n📋 层级分布:")
+            print("\n 层级分布:")
             for level in sorted(levels.keys()):
                 level_nodes = levels[level]
                 print(f"  层级 {level}: {len(level_nodes)} 个节点")
                 if level == 1:  # 第一层是关键层
                     print(f"    节点: {level_nodes}")
             
-            print("\n✅ 简化布局分析完成!")
+            print("\n[OK] 简化布局分析完成!")
             print("\n💡 改进内容:")
-            print("  ✅ 去掉了同层节点重新分布")
-            print("  ✅ 保留了基于后代节点的位置计算")
-            print("  ✅ 简化了布局算法")
-            print("  ✅ 避免了位置被覆盖的问题")
+            print("  [OK] 去掉了同层节点重新分布")
+            print("  [OK] 保留了基于后代节点的位置计算")
+            print("  [OK] 简化了布局算法")
+            print("  [OK] 避免了位置被覆盖的问题")
             
         else:
-            print(f"❌ 获取决策树失败: {response.status_code}")
+            print(f"[ERROR] 获取决策树失败: {response.status_code}")
             
     except requests.exceptions.ConnectionError:
-        print("❌ 无法连接到后端服务")
+        print("[ERROR] 无法连接到后端服务")
     except Exception as e:
-        print(f"❌ 测试失败: {e}")
+        print(f"[ERROR] 测试失败: {e}")
 
 def check_frontend_layout():
     """检查前端布局效果"""
@@ -141,22 +141,22 @@ def check_frontend_layout():
     try:
         response = requests.get('http://localhost:3000/', timeout=5)
         if response.status_code == 200:
-            print("✅ 前端服务正常")
+            print("[OK] 前端服务正常")
             print("🌐 访问地址: http://localhost:3000/")
             print("💡 在决策树编辑器中查看简化布局效果")
-            print("🔍 观察要点:")
+            print("[DEBUG] 观察要点:")
             print("  - network_issue是否居中到其子节点")
             print("  - 其他第一层节点是否也居中到各自子节点")
             print("  - 整体布局是否更加合理")
         else:
-            print(f"⚠️ 前端响应异常: {response.status_code}")
+            print(f"[WARNING] 前端响应异常: {response.status_code}")
     except requests.exceptions.ConnectionError:
-        print("❌ 无法连接到前端服务")
+        print("[ERROR] 无法连接到前端服务")
     except Exception as e:
-        print(f"❌ 前端检查失败: {e}")
+        print(f"[ERROR] 前端检查失败: {e}")
 
 def main():
-    print("🚀 测试简化布局算法...")
+    print(" 测试简化布局算法...")
     print("=" * 80)
     
     # 测试简化布局
@@ -166,12 +166,12 @@ def main():
     check_frontend_layout()
     
     print("\n" + "=" * 80)
-    print("✅ 简化布局测试完成!")
+    print("[OK] 简化布局测试完成!")
     print("\n📝 修复总结:")
-    print("  ✅ 去掉了同层重新分布逻辑")
-    print("  ✅ 保留了基于后代的位置计算")
-    print("  ✅ 简化了布局算法")
-    print("  ✅ 解决了位置被覆盖的问题")
+    print("  [OK] 去掉了同层重新分布逻辑")
+    print("  [OK] 保留了基于后代的位置计算")
+    print("  [OK] 简化了布局算法")
+    print("  [OK] 解决了位置被覆盖的问题")
 
 if __name__ == "__main__":
     main() 

@@ -1,6 +1,6 @@
 <template>
   <div class="ai-augment-panel">
-    <h3>🤖 AI增强决策树</h3>
+    <h3>[AI] AI增强决策树</h3>
     
     <!-- 聊天记录输入 -->
     <div class="input-section">
@@ -27,11 +27,11 @@
     
     <!-- 处理结果 -->
     <div v-if="aiResult" class="result-section">
-      <h4>📋 AI分析结果</h4>
+      <h4>AI分析结果</h4>
       
       <!-- 路径数据 -->
       <div v-if="aiResult.path_data" class="path-data">
-        <h5>🔍 解析的路径：</h5>
+        <h5>[DEBUG] 解析的路径：</h5>
         <div class="path-steps">
           <div v-for="step in aiResult.path_data.steps" :key="step.step" class="step">
             <span class="step-number">步骤 {{ step.step }}:</span>
@@ -56,7 +56,7 @@
       
       <!-- 新节点预览 -->
       <div v-if="aiResult.new_nodes" class="nodes-preview">
-        <h5>🔍 新节点预览：</h5>
+        <h5>[DEBUG] 新节点预览：</h5>
         <div class="nodes-list">
           <div v-for="(node, nodeId) in aiResult.new_nodes.nodes" :key="nodeId" class="node-item">
             <div class="node-id">{{ nodeId }}</div>

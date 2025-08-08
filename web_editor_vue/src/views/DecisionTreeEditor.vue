@@ -66,7 +66,7 @@
             </div>
           </el-tab-pane>
           
-          <el-tab-pane label="🤖 AI增强" name="ai">
+          <el-tab-pane label="[AI] AI增强" name="ai">
             <AIAugmentPanel 
               @changes-confirmed="handleAIChangesConfirmed"
               @changes-discarded="handleAIChangesDiscarded"

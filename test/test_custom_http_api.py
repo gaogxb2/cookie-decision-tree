@@ -18,7 +18,7 @@ def create_mock_response(content_field_path, response_data):
 
 def test_custom_http_api_with_mock():
     """使用打桩测试自定义HTTP API功能"""
-    print("🔧 测试自定义HTTP API功能（打桩模式）...")
+    print(" 测试自定义HTTP API功能（打桩模式）...")
     print("=" * 80)
     
     # 测试配置
@@ -71,7 +71,7 @@ def test_custom_http_api_with_mock():
             {"role": "user", "content": "我的电脑无法连接网络，请帮我分析一下"}
         ]
         
-        print("ℹ️ 准备测试请求...")
+        print("[INFO] 准备测试请求...")
         print(f"URL: {test_config['ai']['api']['custom_http']['url']}")
         print(f"Headers: {json.dumps(test_config['ai']['api']['custom_http']['headers'], indent=2, ensure_ascii=False)}")
         print(f"Messages: {json.dumps(test_messages, ensure_ascii=False, indent=2)}")
@@ -154,7 +154,7 @@ def test_custom_http_api_with_mock():
                 response = parser._call_ai_api(test_messages)
                 
                 if response:
-                    print("✅ 测试成功!")
+                    print("[OK] 测试成功!")
                     print(f"提取的内容: {response}")
                     
                     # 验证请求参数
@@ -164,7 +164,7 @@ def test_custom_http_api_with_mock():
                     print(f"请求头: {json.dumps(call_args[1]['headers'], indent=2, ensure_ascii=False)}")
                     print(f"请求体: {json.dumps(call_args[1]['json'], indent=2, ensure_ascii=False)}")
                 else:
-                    print("❌ 测试失败")
+                    print("[ERROR] 测试失败")
                 
                 print()
         
@@ -180,9 +180,9 @@ def test_custom_http_api_with_mock():
         with patch('requests.post', return_value=error_response) as mock_post:
             response = parser._call_ai_api(test_messages)
             if response is None:
-                print("✅ HTTP错误处理正确")
+                print("[OK] HTTP错误处理正确")
             else:
-                print("❌ HTTP错误处理失败")
+                print("[ERROR] HTTP错误处理失败")
         
         # 测试解析错误
         invalid_response = Mock()
@@ -192,12 +192,12 @@ def test_custom_http_api_with_mock():
         with patch('requests.post', return_value=invalid_response) as mock_post:
             response = parser._call_ai_api(test_messages)
             if response is None:
-                print("✅ 解析错误处理正确")
+                print("[OK] 解析错误处理正确")
             else:
-                print("❌ 解析错误处理失败")
+                print("[ERROR] 解析错误处理失败")
                 
     except Exception as e:
-        print(f"❌ 测试失败: {e}")
+        print(f"[ERROR] 测试失败: {e}")
     finally:
         # 清理测试文件
         if os.path.exists('test_ai_config.yaml'):
@@ -205,7 +205,7 @@ def test_custom_http_api_with_mock():
 
 def test_config_examples():
     """显示配置示例"""
-    print("\n📋 配置示例:")
+    print("\n 配置示例:")
     print("=" * 80)
     
     examples = {
@@ -268,7 +268,7 @@ def test_config_examples():
     }
     
     for name, config in examples.items():
-        print(f"\n🔧 {name}:")
+        print(f"\n {name}:")
         print("-" * 40)
         print(f"URL: {config['url']}")
         print(f"Headers: {json.dumps(config['headers'], indent=2, ensure_ascii=False)}")
@@ -305,7 +305,7 @@ def show_usage_guide():
     print("   - 检查日志输出确认配置正确")
 
 def main():
-    print("🚀 测试自定义HTTP API功能（打桩模式）...")
+    print(" 测试自定义HTTP API功能（打桩模式）...")
     print("=" * 80)
     
     # 测试自定义HTTP API
@@ -318,14 +318,14 @@ def main():
     show_usage_guide()
     
     print("\n" + "=" * 80)
-    print("✅ 自定义HTTP API功能测试完成!")
+    print("[OK] 自定义HTTP API功能测试完成!")
     print("\n💡 功能特点:")
-    print("  ✅ 支持任意HTTP POST API")
-    print("  ✅ 灵活的请求头和请求体配置")
-    print("  ✅ 支持环境变量替换")
-    print("  ✅ 可配置的响应解析")
-    print("  ✅ 错误处理和日志记录")
-    print("  ✅ 打桩测试验证功能")
+    print("  [OK] 支持任意HTTP POST API")
+    print("  [OK] 灵活的请求头和请求体配置")
+    print("  [OK] 支持环境变量替换")
+    print("  [OK] 可配置的响应解析")
+    print("  [OK] 错误处理和日志记录")
+    print("  [OK] 打桩测试验证功能")
 
 if __name__ == "__main__":
     main() 

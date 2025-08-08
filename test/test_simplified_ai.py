@@ -7,7 +7,7 @@ from datetime import datetime
 
 def test_simplified_ai():
     """测试简化后的AI功能"""
-    print("🧹 测试简化后的AI功能...")
+    print(" 测试简化后的AI功能...")
     print("=" * 80)
     
     # 测试聊天记录
@@ -27,7 +27,7 @@ def test_simplified_ai():
 用户: 更新后可以连接了，谢谢
     """
     
-    print("ℹ️ 发送请求到 /api/ai/direct-process...")
+    print("[INFO] 发送请求到 /api/ai/direct-process...")
     print("-" * 40)
     
     try:
@@ -41,27 +41,27 @@ def test_simplified_ai():
             timeout=30
         )
         
-        print(f"ℹ️ 响应状态码: {response.status_code}")
+        print(f"[INFO] 响应状态码: {response.status_code}")
         print()
         
         if response.status_code == 200:
             result = response.json()
             
             if result.get('success'):
-                print("✅ AI处理成功!")
+                print("[OK] AI处理成功!")
                 print()
                 
                 # 显示路径数据
                 if 'path_data' in result:
                     path_data = result['path_data']
-                    print("📋 AI解析的路径数据:")
+                    print(" AI解析的路径数据:")
                     print(json.dumps(path_data, ensure_ascii=False, indent=2))
                     print()
                 
                 # 显示新节点数据
                 if 'new_nodes' in result:
                     new_nodes = result['new_nodes']
-                    print("🔍 AI生成的节点数据:")
+                    print("[DEBUG] AI生成的节点数据:")
                     print(json.dumps(new_nodes, ensure_ascii=False, indent=2))
                     print()
                 
@@ -76,26 +76,26 @@ def test_simplified_ai():
                 print(f"💬 消息: {result.get('message', 'N/A')}")
                 print()
                 print("🔒 安全验证:")
-                print("  ✅ 只发送聊天记录给AI")
-                print("  ✅ 没有发送决策树给AI")
-                print("  ✅ 自动记录对话过程")
+                print("  [OK] 只发送聊天记录给AI")
+                print("  [OK] 没有发送决策树给AI")
+                print("  [OK] 自动记录对话过程")
                 
             else:
-                print(f"❌ AI处理失败: {result.get('error', '未知错误')}")
+                print(f"[ERROR] AI处理失败: {result.get('error', '未知错误')}")
         else:
-            print(f"❌ 请求失败: {response.status_code}")
+            print(f"[ERROR] 请求失败: {response.status_code}")
             print(f"响应内容: {response.text}")
             
     except requests.exceptions.Timeout:
-        print("❌ 请求超时")
+        print("[ERROR] 请求超时")
     except requests.exceptions.ConnectionError:
-        print("❌ 连接失败，请检查后端服务是否运行")
+        print("[ERROR] 连接失败，请检查后端服务是否运行")
     except Exception as e:
-        print(f"❌ 请求异常: {e}")
+        print(f"[ERROR] 请求异常: {e}")
 
 def check_old_api():
     """检查旧的API是否还存在"""
-    print("\n🔍 检查旧的API端点...")
+    print("\n[DEBUG] 检查旧的API端点...")
     print("=" * 80)
     
     try:
@@ -110,17 +110,17 @@ def check_old_api():
         )
         
         if response.status_code == 404:
-            print("✅ 旧的API端点已删除")
+            print("[OK] 旧的API端点已删除")
         else:
-            print("⚠️ 旧的API端点仍然存在")
+            print("[WARNING] 旧的API端点仍然存在")
             
     except requests.exceptions.ConnectionError:
-        print("❌ 无法连接到服务器")
+        print("[ERROR] 无法连接到服务器")
     except Exception as e:
-        print(f"✅ 旧的API端点已删除 (错误: {e})")
+        print(f"[OK] 旧的API端点已删除 (错误: {e})")
 
 def main():
-    print("🚀 测试简化后的AI功能...")
+    print(" 测试简化后的AI功能...")
     print("=" * 80)
     
     # 检查旧的API
@@ -130,13 +130,13 @@ def main():
     test_simplified_ai()
     
     print("\n" + "=" * 80)
-    print("✅ 简化测试完成!")
+    print("[OK] 简化测试完成!")
     print("\n📝 简化总结:")
-    print("  ✅ 删除了'开始AI分析'按钮")
-    print("  ✅ 删除了旧的API端点")
-    print("  ✅ 只保留安全的'AI分析'功能")
-    print("  ✅ 自动记录对话过程")
-    print("  ✅ 保护敏感信息")
+    print("  [OK] 删除了'开始AI分析'按钮")
+    print("  [OK] 删除了旧的API端点")
+    print("  [OK] 只保留安全的'AI分析'功能")
+    print("  [OK] 自动记录对话过程")
+    print("  [OK] 保护敏感信息")
 
 if __name__ == "__main__":
     main() 

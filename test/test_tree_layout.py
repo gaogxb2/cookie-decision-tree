@@ -17,7 +17,7 @@ def test_tree_layout():
             tree_data = response.json()
             nodes = tree_data.get('nodes', {})
             
-            print("📊 当前决策树节点信息:")
+            print(" 当前决策树节点信息:")
             print("-" * 40)
             print(f"总节点数: {len(nodes)}")
             
@@ -69,7 +69,7 @@ def test_tree_layout():
                 calculate_levels(root)
             
             # 显示层级信息
-            print("\n📋 节点层级分布:")
+            print("\n 节点层级分布:")
             for level in sorted(levels.keys()):
                 level_nodes = levels[level]
                 print(f"  层级 {level}: {len(level_nodes)} 个节点")
@@ -85,21 +85,21 @@ def test_tree_layout():
             for node_id, child_list in children.items():
                 print(f"  {node_id} -> {child_list}")
             
-            print("\n✅ 布局分析完成!")
+            print("\n[OK] 布局分析完成!")
             print("\n💡 布局改进:")
-            print("  ✅ 增加了节点间距 (180px)")
-            print("  ✅ 优化了上层节点居中算法")
-            print("  ✅ 改进了连接线绘制 (平滑曲线)")
-            print("  ✅ 添加了标签背景")
-            print("  ✅ 自底向上的位置计算")
+            print("  [OK] 增加了节点间距 (180px)")
+            print("  [OK] 优化了上层节点居中算法")
+            print("  [OK] 改进了连接线绘制 (平滑曲线)")
+            print("  [OK] 添加了标签背景")
+            print("  [OK] 自底向上的位置计算")
             
         else:
-            print(f"❌ 获取决策树失败: {response.status_code}")
+            print(f"[ERROR] 获取决策树失败: {response.status_code}")
             
     except requests.exceptions.ConnectionError:
-        print("❌ 无法连接到后端服务")
+        print("[ERROR] 无法连接到后端服务")
     except Exception as e:
-        print(f"❌ 测试失败: {e}")
+        print(f"[ERROR] 测试失败: {e}")
 
 def check_frontend():
     """检查前端是否正常"""
@@ -109,18 +109,18 @@ def check_frontend():
     try:
         response = requests.get('http://localhost:3000/', timeout=5)
         if response.status_code == 200:
-            print("✅ 前端服务正常")
+            print("[OK] 前端服务正常")
             print("🌐 访问地址: http://localhost:3000/")
             print("💡 在决策树编辑器中查看布局改进效果")
         else:
-            print(f"⚠️ 前端响应异常: {response.status_code}")
+            print(f"[WARNING] 前端响应异常: {response.status_code}")
     except requests.exceptions.ConnectionError:
-        print("❌ 无法连接到前端服务")
+        print("[ERROR] 无法连接到前端服务")
     except Exception as e:
-        print(f"❌ 前端检查失败: {e}")
+        print(f"[ERROR] 前端检查失败: {e}")
 
 def main():
-    print("🚀 测试决策树布局改进...")
+    print(" 测试决策树布局改进...")
     print("=" * 80)
     
     # 测试布局改进
@@ -130,13 +130,13 @@ def main():
     check_frontend()
     
     print("\n" + "=" * 80)
-    print("✅ 布局改进测试完成!")
+    print("[OK] 布局改进测试完成!")
     print("\n📝 改进总结:")
-    print("  ✅ 优化了节点位置计算")
-    print("  ✅ 改进了连接线绘制")
-    print("  ✅ 增加了节点间距")
-    print("  ✅ 上层节点更好地居中")
-    print("  ✅ 更清晰的视觉层次")
+    print("  [OK] 优化了节点位置计算")
+    print("  [OK] 改进了连接线绘制")
+    print("  [OK] 增加了节点间距")
+    print("  [OK] 上层节点更好地居中")
+    print("  [OK] 更清晰的视觉层次")
 
 if __name__ == "__main__":
     main() 

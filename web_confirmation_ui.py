@@ -37,7 +37,7 @@ class WebConfirmationUI:
             with open(config_file, 'r', encoding='utf-8') as f:
                 return yaml.safe_load(f)
         except Exception as e:
-            print(f"❌ 加载配置文件失败: {e}")
+            print(f"[ERROR] 加载配置文件失败: {e}")
             sys.exit(1)
     
     def _create_directories(self):
@@ -64,7 +64,7 @@ class WebConfirmationUI:
 <body>
     <div id="app">
         <header class="header">
-            <h1>🤖 AI决策树增强确认</h1>
+            <h1>[AI] AI决策树增强确认</h1>
             <div class="status-bar">
                 <span class="status-item">
                     <span class="status-label">原始节点:</span>
@@ -84,7 +84,7 @@ class WebConfirmationUI:
         <main class="main-content">
             <div class="sidebar">
                 <div class="panel">
-                    <h3>📋 变更摘要</h3>
+                    <h3>变更摘要</h3>
                     <div class="changes-summary">
                         <div v-for="change in changes" :key="change.id" class="change-item" :class="change.type">
                             <span class="change-icon">{{ change.icon }}</span>
@@ -94,25 +94,25 @@ class WebConfirmationUI:
                 </div>
 
                 <div class="panel">
-                    <h3>⚙️ 操作</h3>
+                    <h3>操作</h3>
                     <div class="actions">
                         <button @click="previewVisualization" class="btn btn-primary">
-                            🎨 预览可视化
+                            预览可视化
                         </button>
                         <button @click="saveBackup" class="btn btn-secondary">
-                            💾 保存备份
+                            [SAVE] 保存备份
                         </button>
                         <button @click="confirmMerge" class="btn btn-success">
-                            ✅ 确认合并
+                            [OK] 确认合并
                         </button>
                         <button @click="cancelOperation" class="btn btn-danger">
-                            ❌ 取消
+                            [ERROR] 取消
                         </button>
                     </div>
                 </div>
 
                 <div class="panel" v-if="selectedNode">
-                    <h3>✏️ 编辑节点</h3>
+                    <h3>编辑节点</h3>
                     <div class="node-editor">
                         <div class="form-group">
                             <label>节点ID:</label>
@@ -507,7 +507,7 @@ createApp({
                     this.changes.push({
                         id: id,
                         type: 'modified',
-                        icon: '✏️',
+                        icon: '[EDIT]',
                         text: `修改节点: ${id}`
                     });
                 }

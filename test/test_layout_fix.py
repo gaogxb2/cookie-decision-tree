@@ -6,7 +6,7 @@ import json
 
 def test_layout_fix():
     """测试布局修复效果"""
-    print("🔧 测试布局修复效果...")
+    print(" 测试布局修复效果...")
     print("=" * 80)
     
     try:
@@ -17,7 +17,7 @@ def test_layout_fix():
             tree_data = response.json()
             nodes = tree_data.get('nodes', {})
             
-            print("📊 决策树节点分析:")
+            print(" 决策树节点分析:")
             print("-" * 40)
             print(f"总节点数: {len(nodes)}")
             
@@ -87,7 +87,7 @@ def test_layout_fix():
                 descendants_map[node_id] = get_all_descendants(node_id)
             
             # 显示层级信息和后代分布
-            print("\n📋 节点层级和后代分布:")
+            print("\n 节点层级和后代分布:")
             for level in sorted(levels.keys()):
                 level_nodes = levels[level]
                 print(f"\n  层级 {level}: {len(level_nodes)} 个节点")
@@ -102,7 +102,7 @@ def test_layout_fix():
                             print(f"      后代: {descendants[:5]}{'...' if len(descendants) > 5 else ''}")
             
             # 分析布局改进
-            print("\n🔧 布局修复分析:")
+            print("\n 布局修复分析:")
             print("-" * 40)
             
             # 检查每个层级的节点分布
@@ -117,20 +117,20 @@ def test_layout_fix():
                         if visible_descendants:
                             print(f"      后代分布: {visible_descendants[:3]}{'...' if len(visible_descendants) > 3 else ''}")
             
-            print("\n✅ 布局修复完成!")
+            print("\n[OK] 布局修复完成!")
             print("\n💡 修复内容:")
-            print("  ✅ 考虑所有后代节点而不是只考虑直接子节点")
-            print("  ✅ 使用广度优先搜索获取所有后代")
-            print("  ✅ 基于所有后代节点的分布计算父节点位置")
-            print("  ✅ 确保上层节点居中到所有后代节点的平均位置")
+            print("  [OK] 考虑所有后代节点而不是只考虑直接子节点")
+            print("  [OK] 使用广度优先搜索获取所有后代")
+            print("  [OK] 基于所有后代节点的分布计算父节点位置")
+            print("  [OK] 确保上层节点居中到所有后代节点的平均位置")
             
         else:
-            print(f"❌ 获取决策树失败: {response.status_code}")
+            print(f"[ERROR] 获取决策树失败: {response.status_code}")
             
     except requests.exceptions.ConnectionError:
-        print("❌ 无法连接到后端服务")
+        print("[ERROR] 无法连接到后端服务")
     except Exception as e:
-        print(f"❌ 测试失败: {e}")
+        print(f"[ERROR] 测试失败: {e}")
 
 def check_frontend_layout():
     """检查前端布局效果"""
@@ -140,22 +140,22 @@ def check_frontend_layout():
     try:
         response = requests.get('http://localhost:3000/', timeout=5)
         if response.status_code == 200:
-            print("✅ 前端服务正常")
+            print("[OK] 前端服务正常")
             print("🌐 访问地址: http://localhost:3000/")
             print("💡 在决策树编辑器中查看布局修复效果")
-            print("🔍 观察要点:")
+            print("[DEBUG] 观察要点:")
             print("  - 上层节点是否居中到下层节点的平均位置")
             print("  - 第三层及以上节点是否不再偏离中心")
             print("  - 整体布局是否更加平衡")
         else:
-            print(f"⚠️ 前端响应异常: {response.status_code}")
+            print(f"[WARNING] 前端响应异常: {response.status_code}")
     except requests.exceptions.ConnectionError:
-        print("❌ 无法连接到前端服务")
+        print("[ERROR] 无法连接到前端服务")
     except Exception as e:
-        print(f"❌ 前端检查失败: {e}")
+        print(f"[ERROR] 前端检查失败: {e}")
 
 def main():
-    print("🚀 测试布局修复效果...")
+    print(" 测试布局修复效果...")
     print("=" * 80)
     
     # 测试布局修复
@@ -165,12 +165,12 @@ def main():
     check_frontend_layout()
     
     print("\n" + "=" * 80)
-    print("✅ 布局修复测试完成!")
+    print("[OK] 布局修复测试完成!")
     print("\n📝 修复总结:")
-    print("  ✅ 修复了上层节点居中问题")
-    print("  ✅ 考虑所有后代节点的分布")
-    print("  ✅ 使用改进的算法计算节点位置")
-    print("  ✅ 确保更平衡的视觉布局")
+    print("  [OK] 修复了上层节点居中问题")
+    print("  [OK] 考虑所有后代节点的分布")
+    print("  [OK] 使用改进的算法计算节点位置")
+    print("  [OK] 确保更平衡的视觉布局")
 
 if __name__ == "__main__":
     main() 

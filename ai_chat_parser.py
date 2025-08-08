@@ -228,7 +228,7 @@ class AIChatParser:
     
     def parse_chat_history(self, chat_history: str, existing_tree: Dict = None) -> Dict:
         """解析聊天记录并生成决策树节点"""
-        print("🔍 开始解析聊天记录...")
+        print("[DEBUG] 开始解析聊天记录...")
         
         system_prompt = self.prompts['chat_analysis']['system']
         user_prompt = self.prompts['chat_analysis']['user'].format(
@@ -248,24 +248,24 @@ class AIChatParser:
             # 解析AI返回的路径数据
             path_data = self._extract_json_from_response(response)
             if not path_data:
-                print("❌ 无法解析AI响应")
+                print("[ERROR] 无法解析AI响应")
                 return None
             
             # 将路径转换为决策树结构
             tree_data = self.convert_path_to_tree(path_data)
             if not tree_data:
-                print("❌ 路径转换失败")
+                print("[ERROR] 路径转换失败")
                 return None
             
             return tree_data
             
         except Exception as e:
-            print(f"❌ 解析失败: {e}")
+            print(f"[ERROR] 解析失败: {e}")
             return None
     
     def validate_tree_nodes(self, new_nodes: Dict, existing_tree: Dict) -> Dict:
         """验证新生成的决策树节点"""
-        print("✅ 验证决策树节点...")
+        print("[OK] 验证决策树节点...")
         
         system_prompt = self.prompts['tree_validation']['system']
         user_prompt = self.prompts['tree_validation']['user'].format(
@@ -296,7 +296,7 @@ class AIChatParser:
         new_nodes_dict = new_nodes.get('nodes', {})
         
         if not entry_node or not new_nodes_dict:
-            print("❌ AI生成的节点数据不完整")
+            print("[ERROR] AI生成的节点数据不完整")
             return None
         
         # 获取现有决策树的根节点
@@ -304,7 +304,7 @@ class AIChatParser:
         existing_nodes_dict = existing_nodes.get('nodes', {})
         
         if not existing_root or not existing_nodes_dict:
-            print("❌ 现有决策树数据不完整")
+            print("[ERROR] 现有决策树数据不完整")
             return None
         
         # 在现有根节点添加AI路径的入口选项
@@ -327,9 +327,9 @@ class AIChatParser:
             existing_options = [opt['text'] for opt in existing_nodes_dict[existing_root]['options']]
             if new_option['text'] not in existing_options:
                 existing_nodes_dict[existing_root]['options'].append(new_option)
-                print(f"✅ 已添加新选项: {new_option['text']} -> {entry_node}")
+                print(f"[OK] 已添加新选项: {new_option['text']} -> {entry_node}")
             else:
-                print(f"⚠️ 选项已存在: {new_option['text']}")
+                print(f"选项已存在: {new_option['text']}")
         
         # 合并所有新节点到现有树
         existing_nodes_dict.update(new_nodes_dict)
@@ -344,7 +344,7 @@ class AIChatParser:
     
     def classify_problem(self, problem_description: str, existing_categories: List[str]) -> Dict:
         """对问题进行分类"""
-        print("🏷️ 对问题进行分类...")
+        print("对问题进行分类...")
         
         system_prompt = self.prompts['problem_classification']['system']
         user_prompt = self.prompts['problem_classification']['user'].format(
@@ -368,7 +368,7 @@ class AIChatParser:
     
     def optimize_solution(self, original_solution: str, problem_context: str) -> str:
         """优化解决方案"""
-        print("✨ 优化解决方案...")
+        print("优化解决方案...")
         
         system_prompt = self.prompts['solution_optimization']['system']
         user_prompt = self.prompts['solution_optimization']['user'].format(
@@ -386,7 +386,7 @@ class AIChatParser:
     
     def check_errors(self, tree_structure: Dict) -> Dict:
         """检查决策树错误"""
-        print("🔍 检查决策树错误...")
+        print("[DEBUG] 检查决策树错误...")
         
         system_prompt = self.prompts['error_handling']['system']
         user_prompt = self.prompts['error_handling']['user'].format(
@@ -426,7 +426,7 @@ class AIChatParser:
     
     def process_chat_and_generate_tree(self, chat_history: str, existing_tree: Dict = None) -> Dict:
         """处理聊天记录并生成决策树节点"""
-        print("🚀 开始处理聊天记录...")
+        print("开始处理聊天记录...")
         
         # 1. 解析聊天记录（不传递现有决策树）
         parsed_nodes = self.parse_chat_history(chat_history)
@@ -465,7 +465,7 @@ class AIChatParser:
     
     def validate_new_nodes_only(self, new_nodes: Dict) -> Dict:
         """只验证新节点的内部结构，不发送现有决策树"""
-        print("✅ 验证新节点结构...")
+        print("[OK] 验证新节点结构...")
         
         # 简单的结构验证，不调用AI
         errors = []

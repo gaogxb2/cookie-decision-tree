@@ -26,7 +26,7 @@ def test_ai_direct_process():
 用户: 更新后可以连接了，谢谢
     """
     
-    print("ℹ️ 发送测试请求到后端...")
+    print("[INFO] 发送测试请求到后端...")
     
     try:
         response = requests.post(
@@ -39,18 +39,18 @@ def test_ai_direct_process():
             timeout=30
         )
         
-        print(f"ℹ️ 响应状态码: {response.status_code}")
+        print(f"[INFO] 响应状态码: {response.status_code}")
         
         if response.status_code == 200:
             result = response.json()
             
             if result.get('success'):
-                print("✅ AI处理成功!")
+                print("[OK] AI处理成功!")
                 
                 # 显示路径数据
                 if 'path_data' in result:
                     path_data = result['path_data']
-                    print(f"\n🔍 解析的路径:")
+                    print(f"\n[DEBUG] 解析的路径:")
                     print(f"   问题: {path_data.get('problem', 'N/A')}")
                     print(f"   步骤数: {len(path_data.get('steps', []))}")
                     print(f"   解决方案: {path_data.get('solution', 'N/A')}")
@@ -69,7 +69,7 @@ def test_ai_direct_process():
                 if 'new_nodes' in result:
                     new_nodes = result['new_nodes']
                     node_count = len(new_nodes.get('nodes', {}))
-                    print(f"\n🔍 新节点信息:")
+                    print(f"\n[DEBUG] 新节点信息:")
                     print(f"   节点数量: {node_count}")
                     print(f"   入口节点: {new_nodes.get('entry_node', 'N/A')}")
                     
@@ -85,17 +85,17 @@ def test_ai_direct_process():
                 print(f"\n💬 消息: {result.get('message', 'N/A')}")
                 
             else:
-                print(f"❌ AI处理失败: {result.get('error', '未知错误')}")
+                print(f"[ERROR] AI处理失败: {result.get('error', '未知错误')}")
         else:
-            print(f"❌ 请求失败: {response.status_code}")
+            print(f"[ERROR] 请求失败: {response.status_code}")
             print(f"响应内容: {response.text}")
             
     except requests.exceptions.Timeout:
-        print("❌ 请求超时")
+        print("[ERROR] 请求超时")
     except requests.exceptions.ConnectionError:
-        print("❌ 连接失败，请检查后端服务是否运行")
+        print("[ERROR] 连接失败，请检查后端服务是否运行")
     except Exception as e:
-        print(f"❌ 请求异常: {e}")
+        print(f"[ERROR] 请求异常: {e}")
 
 def test_frontend_access():
     """测试前端访问"""
@@ -103,20 +103,20 @@ def test_frontend_access():
     
     try:
         response = requests.get('http://localhost:3003/', timeout=10)
-        print(f"ℹ️ 前端响应状态码: {response.status_code}")
+        print(f"[INFO] 前端响应状态码: {response.status_code}")
         
         if response.status_code == 200:
-            print("✅ 前端服务正常")
+            print("[OK] 前端服务正常")
         else:
-            print(f"⚠️ 前端响应异常: {response.status_code}")
+            print(f"[WARNING] 前端响应异常: {response.status_code}")
             
     except requests.exceptions.ConnectionError:
-        print("❌ 无法连接到前端服务")
+        print("[ERROR] 无法连接到前端服务")
     except Exception as e:
-        print(f"❌ 前端访问异常: {e}")
+        print(f"[ERROR] 前端访问异常: {e}")
 
 def main():
-    print("🚀 开始测试决策树AI功能...")
+    print(" 开始测试决策树AI功能...")
     print("=" * 50)
     
     # 测试前端访问
@@ -128,13 +128,13 @@ def main():
     test_ai_direct_process()
     
     print("\n" + "=" * 50)
-    print("✅ 测试完成!")
-    print("\n📋 访问地址:")
+    print("[OK] 测试完成!")
+    print("\n 访问地址:")
     print("   前端界面: http://localhost:3003/")
     print("   后端API: http://localhost:5000/")
     print("\n💡 使用说明:")
     print("   1. 打开前端界面")
-    print("   2. 切换到 '🤖 AI增强' 标签页")
+    print("   2. 切换到 '[AI] AI增强' 标签页")
     print("   3. 输入聊天记录")
     print("   4. 点击 '直接AI分析' 按钮")
     print("   5. 查看分析结果并确认合并")

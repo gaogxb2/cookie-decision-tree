@@ -20,7 +20,7 @@ class TreeVisualizer:
             with open(config_file, 'r', encoding='utf-8') as f:
                 return yaml.safe_load(f)
         except Exception as e:
-            print(f"❌ 加载配置文件失败: {e}")
+            print(f"[ERROR] 加载配置文件失败: {e}")
             sys.exit(1)
     
     def _get_node_style(self, node_id: str, node_type: str, is_new: bool = False, is_modified: bool = False) -> Dict:
@@ -68,7 +68,7 @@ class TreeVisualizer:
     def generate_visualization_data(self, original_tree: Dict, new_nodes: Dict, 
                                   modified_nodes: Set = None) -> Dict:
         """生成可视化数据"""
-        print("🎨 生成可视化数据...")
+        print("生成可视化数据...")
         
         # 合并原始树和新节点
         merged_tree = self._merge_trees(original_tree, new_nodes)
@@ -158,7 +158,7 @@ class TreeVisualizer:
     
     def generate_diff_report(self, original_tree: Dict, new_nodes: Dict) -> Dict:
         """生成差异报告"""
-        print("📊 生成差异报告...")
+        print(" 生成差异报告...")
         
         original_nodes = set(original_tree.get('nodes', {}).keys())
         new_node_ids = set(new_nodes.get('nodes', {}).keys())
@@ -352,7 +352,7 @@ class TreeVisualizer:
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(html_content)
         
-        print(f"✅ 可视化文件已保存: {output_file}")
+        print(f"[OK] 可视化文件已保存: {output_file}")
         return output_file
 
 def main():

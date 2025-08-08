@@ -43,7 +43,7 @@ def test_precise_ai():
         end_time = time.time()
         processing_time = end_time - start_time
         
-        print(f"⏱️ 处理时间: {processing_time:.2f}秒")
+        print(f"[TIME] 处理时间: {processing_time:.2f}秒")
         
         if response.status_code == 200:
             result = response.json()
@@ -51,13 +51,13 @@ def test_precise_ai():
             if result.get('success'):
                 new_nodes = result.get('new_nodes', {})
                 
-                print("\n📋 AI生成的节点分析:")
+                print("\n AI生成的节点分析:")
                 print("-" * 50)
                 
                 # 分析节点数量
                 if 'nodes' in new_nodes:
                     nodes = new_nodes['nodes']
-                    print(f"✅ 节点总数: {len(nodes)}")
+                    print(f"[OK] 节点总数: {len(nodes)}")
                     
                     # 检查是否只包含聊天记录中的内容
                     expected_nodes = [
@@ -65,7 +65,7 @@ def test_precise_ai():
                         'restart_router', 'check_network_adapter', 'update_driver'
                     ]
                     
-                    print("\n🔍 节点内容分析:")
+                    print("\n[DEBUG] 节点内容分析:")
                     for node_id, node_data in nodes.items():
                         if 'question' in node_data:
                             question = node_data['question']
@@ -96,27 +96,27 @@ def test_precise_ai():
                             unexpected_nodes.append(f"{node_id}: {node_text}")
                     
                     if unexpected_nodes:
-                        print(f"\n⚠️ 发现可能超出聊天记录的内容:")
+                        print(f"\n[WARNING] 发现可能超出聊天记录的内容:")
                         for node in unexpected_nodes[:5]:  # 只显示前5个
                             print(f"  - {node}")
                         print(f"  ... 还有 {len(unexpected_nodes)-5} 个节点")
                     else:
-                        print("\n✅ 所有节点都基于聊天记录内容")
+                        print("\n[OK] 所有节点都基于聊天记录内容")
                         
                 else:
-                    print("❌ 没有找到nodes字段")
+                    print("[ERROR] 没有找到nodes字段")
                     
             else:
-                print(f"❌ AI处理失败: {result.get('error')}")
+                print(f"[ERROR] AI处理失败: {result.get('error')}")
         else:
-            print(f"❌ 请求失败: {response.status_code}")
+            print(f"[ERROR] 请求失败: {response.status_code}")
             
     except Exception as e:
-        print(f"❌ 测试失败: {e}")
+        print(f"[ERROR] 测试失败: {e}")
 
 def main():
     """主函数"""
-    print("🚀 开始测试AI精确生成决策树...")
+    print(" 开始测试AI精确生成决策树...")
     
     test_precise_ai()
     

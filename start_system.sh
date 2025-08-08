@@ -7,12 +7,12 @@ sleep 3
 cd web_editor_vue
 
 # 安装前端依赖
-echo "📦 安装前端依赖..."
+echo " 安装前端依赖..."
 if [ ! -d "node_modules" ]; then
-    echo "🔧 首次安装，正在安装 npm 依赖..."
+    echo " 首次安装，正在安装 npm 依赖..."
     npm install
 else
-    echo "✅ node_modules 已存在，跳过安装"
+    echo "[OK] node_modules 已存在，跳过安装"
 fi
 
 npm run dev &

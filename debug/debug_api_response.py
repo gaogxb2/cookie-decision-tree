@@ -6,7 +6,7 @@ import json
 
 def debug_api_response():
     """调试API返回的实际结构"""
-    print("🔍 调试API返回结构...")
+    print("[DEBUG] 调试API返回结构...")
     
     # 测试聊天记录
     chat_history = """
@@ -37,26 +37,26 @@ def debug_api_response():
         
         if response.status_code == 200:
             result = response.json()
-            print("📋 API返回结构:")
+            print("API返回结构:")
             print(json.dumps(result, ensure_ascii=False, indent=2))
             
             if result.get('success'):
                 new_nodes = result.get('new_nodes', {})
-                print("\n🔍 new_nodes字段检查:")
-                print(f"  entry_node: {'✅' if 'entry_node' in new_nodes else '❌'}")
-                print(f"  nodes: {'✅' if 'nodes' in new_nodes else '❌'}")
-                print(f"  root_node: {'✅' if 'root_node' in new_nodes else '❌'}")
+                print("\n[DEBUG] new_nodes字段检查:")
+                print(f"  entry_node: {'[OK]' if 'entry_node' in new_nodes else '[ERROR]'}")
+                print(f"  nodes: {'[OK]' if 'nodes' in new_nodes else '[ERROR]'}")
+                print(f"  root_node: {'[OK]' if 'root_node' in new_nodes else '[ERROR]'}")
                 
                 if 'nodes' in new_nodes:
                     nodes = new_nodes['nodes']
                     print(f"  节点数量: {len(nodes)}")
             else:
-                print(f"❌ API处理失败: {result.get('error')}")
+                print(f"[ERROR] API处理失败: {result.get('error')}")
         else:
-            print(f"❌ 请求失败: {response.status_code}")
+            print(f"[ERROR] 请求失败: {response.status_code}")
             
     except Exception as e:
-        print(f"❌ 调试失败: {e}")
+        print(f"[ERROR] 调试失败: {e}")
 
 if __name__ == "__main__":
     debug_api_response() 

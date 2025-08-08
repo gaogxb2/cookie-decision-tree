@@ -42,7 +42,7 @@ def test_path_to_tree():
         end_time = time.time()
         processing_time = end_time - start_time
         
-        print(f"⏱️ 处理时间: {processing_time:.2f}秒")
+        print(f"[TIME] 处理时间: {processing_time:.2f}秒")
         
         if response.status_code == 200:
             result = response.json()
@@ -50,16 +50,16 @@ def test_path_to_tree():
             if result.get('success'):
                 new_nodes = result.get('new_nodes', {})
                 
-                print("\n📋 生成的决策树分析:")
+                print("\n 生成的决策树分析:")
                 print("-" * 50)
                 
                 # 分析节点数量
                 if 'nodes' in new_nodes:
                     nodes = new_nodes['nodes']
-                    print(f"✅ 节点总数: {len(nodes)}")
+                    print(f"[OK] 节点总数: {len(nodes)}")
                     
                     # 显示节点内容
-                    print("\n🔍 节点内容:")
+                    print("\n[DEBUG] 节点内容:")
                     for node_id, node_data in nodes.items():
                         if 'question' in node_data:
                             question = node_data['question']
@@ -93,26 +93,26 @@ def test_path_to_tree():
                             unexpected_nodes.append(f"{node_id}: {node_text}")
                     
                     if unexpected_nodes:
-                        print(f"\n⚠️ 发现可能超出聊天记录的内容:")
+                        print(f"\n[WARNING] 发现可能超出聊天记录的内容:")
                         for node in unexpected_nodes:
                             print(f"  - {node}")
                     else:
-                        print("\n✅ 所有节点都基于聊天记录内容")
+                        print("\n[OK] 所有节点都基于聊天记录内容")
                         
                 else:
-                    print("❌ 没有找到nodes字段")
+                    print("[ERROR] 没有找到nodes字段")
                     
             else:
-                print(f"❌ AI处理失败: {result.get('error')}")
+                print(f"[ERROR] AI处理失败: {result.get('error')}")
         else:
-            print(f"❌ 请求失败: {response.status_code}")
+            print(f"[ERROR] 请求失败: {response.status_code}")
             
     except Exception as e:
-        print(f"❌ 测试失败: {e}")
+        print(f"[ERROR] 测试失败: {e}")
 
 def main():
     """主函数"""
-    print("🚀 开始测试路径转决策树方法...")
+    print(" 开始测试路径转决策树方法...")
     
     test_path_to_tree()
     

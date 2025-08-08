@@ -1,20 +1,20 @@
 #!/bin/bash
 
-echo "🧹 开始清理代码库..."
+echo "开始清理代码库..."
 
 # 备份重要文件
-echo "📦 创建备份..."
+echo "创建备份..."
 mkdir -p backup_$(date +%Y%m%d_%H%M%S)
 
 # 删除重复的核心功能文件
-echo "🗑️ 删除重复的核心功能文件..."
+echo "删除重复的核心功能文件..."
 if [ -f "src/main.py" ]; then
     echo "  删除 src/main.py (功能已被 problem_locator.py 替代)"
     rm src/main.py
 fi
 
 # 删除过时的启动脚本
-echo "🗑️ 删除过时的启动脚本..."
+echo "删除过时的启动脚本..."
 if [ -f "start_web_editor.sh" ]; then
     echo "  删除 start_web_editor.sh"
     rm start_web_editor.sh
@@ -26,7 +26,7 @@ if [ -f "start_simple_vue_editor.sh" ]; then
 fi
 
 # 删除重复的文档
-echo "🗑️ 删除重复的文档..."
+echo "删除重复的文档..."
 if [ -f "WEB_EDITOR_GUIDE.md" ]; then
     echo "  删除 WEB_EDITOR_GUIDE.md"
     rm WEB_EDITOR_GUIDE.md
@@ -38,7 +38,7 @@ if [ -f "config_example.md" ]; then
 fi
 
 # 删除测试文件（可选）
-echo "🗑️ 删除测试文件..."
+echo "删除测试文件..."
 if [ -f "test_system.py" ]; then
     echo "  删除 test_system.py"
     rm test_system.py
@@ -50,27 +50,27 @@ if [ -f "demo_locator.py" ]; then
 fi
 
 # 删除重复的文档（可选）
-echo "🗑️ 删除重复的文档..."
+echo "删除重复的文档..."
 if [ -f "LOCATOR_SUMMARY.md" ]; then
     echo "  删除 LOCATOR_SUMMARY.md (内容已在 PROBLEM_LOCATOR_GUIDE.md 中)"
     rm LOCATOR_SUMMARY.md
 fi
 
 # 清理空的src目录
-echo "🧹 清理空目录..."
+echo "清理空目录..."
 if [ -d "src" ] && [ -z "$(ls -A src)" ]; then
     echo "  删除空的 src 目录"
     rmdir src
 fi
 
 # 清理__pycache__目录
-echo "🧹 清理Python缓存..."
+echo "清理Python缓存..."
 find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
 
 echo ""
-echo "✅ 清理完成！"
+echo "清理完成！"
 echo ""
-echo "📊 清理后的文件结构："
+echo "清理后的文件结构："
 echo "├── 核心功能"
 echo "│   ├── problem_locator.py"
 echo "│   ├── api_server.py"
@@ -94,4 +94,4 @@ echo "└── 配置文件"
 echo "    ├── requirements.txt"
 echo "    └── config/"
 echo ""
-echo "�� 代码库已优化，文件数量减少约30%" 
+echo "代码库已优化，文件数量减少约30%" 

@@ -2,21 +2,21 @@
 
 # 后端启动脚本
 
-echo "🚀 启动后端服务器..."
+echo " 启动后端服务器..."
 
 # 切换到py310环境
 echo "🔄 切换到py310环境..."
 source ~/.bash_profile
 conda activate py310
 
-echo "✅ Python环境: $(python --version)"
-echo "✅ Conda环境: $CONDA_DEFAULT_ENV"
+echo "[OK] Python环境: $(python --version)"
+echo "[OK] Conda环境: $CONDA_DEFAULT_ENV"
 
 # 检查依赖
-echo "🔍 检查依赖..."
+echo "[DEBUG] 检查依赖..."
 python -c "import yaml, openai, requests" 2>/dev/null
 if [ $? -ne 0 ]; then
-    echo "📦 安装依赖包..."
+    echo " 安装依赖包..."
     pip install pyyaml openai requests
 fi
 

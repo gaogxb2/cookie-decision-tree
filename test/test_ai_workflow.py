@@ -39,22 +39,22 @@ def test_ai_workflow():
         )
         
         if response.status_code != 200:
-            print(f"❌ AI处理失败: {response.status_code}")
+            print(f"[ERROR] AI处理失败: {response.status_code}")
             return False
         
         result = response.json()
         if not result.get('success'):
-            print(f"❌ AI处理失败: {result.get('error')}")
+            print(f"[ERROR] AI处理失败: {result.get('error')}")
             return False
         
-        print("✅ AI处理成功")
-        print(f"📊 生成变更: {len(result.get('changes', []))}")
+        print("[OK] AI处理成功")
+        print(f" 生成变更: {len(result.get('changes', []))}")
         
         # 2. 测试确认变更
         print("📡 步骤2: 测试确认变更...")
         new_nodes = result.get('new_nodes', {})
         if not new_nodes:
-            print("❌ 没有生成新节点")
+            print("[ERROR] 没有生成新节点")
             return False
         
         confirm_response = requests.post(
@@ -66,15 +66,15 @@ def test_ai_workflow():
         )
         
         if confirm_response.status_code != 200:
-            print(f"❌ 确认变更失败: {confirm_response.status_code}")
+            print(f"[ERROR] 确认变更失败: {confirm_response.status_code}")
             return False
         
         confirm_result = confirm_response.json()
         if not confirm_result.get('success'):
-            print(f"❌ 确认变更失败: {confirm_result.get('error')}")
+            print(f"[ERROR] 确认变更失败: {confirm_result.get('error')}")
             return False
         
-        print("✅ 确认变更成功")
+        print("[OK] 确认变更成功")
         
         # 3. 验证决策树已更新
         print("📡 步骤3: 验证决策树更新...")
@@ -84,16 +84,16 @@ def test_ai_workflow():
         if tree_response.status_code == 200:
             tree_data = tree_response.json()
             node_count = len(tree_data.get('nodes', {}))
-            print(f"✅ 决策树已更新，当前节点数: {node_count}")
+            print(f"[OK] 决策树已更新，当前节点数: {node_count}")
         else:
-            print("❌ 无法获取决策树数据")
+            print("[ERROR] 无法获取决策树数据")
             return False
         
-        print("🎉 AI增强工作流程测试通过！")
+        print(" AI增强工作流程测试通过！")
         return True
         
     except Exception as e:
-        print(f"❌ 测试失败: {e}")
+        print(f"[ERROR] 测试失败: {e}")
         return False
 
 def test_web_editor():
@@ -102,18 +102,18 @@ def test_web_editor():
         print("🌐 测试Web编辑器...")
         response = requests.get('http://localhost:3001')  # 注意端口是3001
         if response.status_code == 200:
-            print("✅ Web编辑器可访问")
+            print("[OK] Web编辑器可访问")
             return True
         else:
-            print(f"❌ Web编辑器不可访问: {response.status_code}")
+            print(f"[ERROR] Web编辑器不可访问: {response.status_code}")
             return False
     except Exception as e:
-        print(f"❌ Web编辑器测试失败: {e}")
+        print(f"[ERROR] Web编辑器测试失败: {e}")
         return False
 
 def main():
     """主测试函数"""
-    print("🚀 开始AI增强工作流程测试...")
+    print(" 开始AI增强工作流程测试...")
     
     # 测试Web编辑器
     web_ok = test_web_editor()
@@ -121,17 +121,17 @@ def main():
     # 测试AI工作流程
     ai_ok = test_ai_workflow()
     
-    print("\n📋 测试结果:")
-    print(f"  Web编辑器: {'✅ 正常' if web_ok else '❌ 异常'}")
-    print(f"  AI增强工作流程: {'✅ 正常' if ai_ok else '❌ 异常'}")
+    print("\n 测试结果:")
+    print(f"  Web编辑器: {'[OK] 正常' if web_ok else '[ERROR] 异常'}")
+    print(f"  AI增强工作流程: {'[OK] 正常' if ai_ok else '[ERROR] 异常'}")
     
     if web_ok and ai_ok:
-        print("\n🎉 所有测试通过！")
+        print("\n 所有测试通过！")
         print("📱 请在浏览器中访问: http://localhost:3001")
-        print("🤖 在编辑器中切换到'AI增强'标签页进行测试")
+        print("[AI] 在编辑器中切换到'AI增强'标签页进行测试")
         print("💡 提示: 新增的节点应该会在树状图中显示")
     else:
-        print("\n⚠️ 部分测试失败，请检查服务状态")
+        print("\n[WARNING] 部分测试失败，请检查服务状态")
 
 if __name__ == "__main__":
     main() 

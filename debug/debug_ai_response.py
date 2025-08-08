@@ -6,7 +6,7 @@ import json
 
 def debug_ai_response():
     """调试AI响应"""
-    print("🔍 调试AI响应...")
+    print("调试AI响应...")
     
     # 测试聊天记录
     chat_history = """
@@ -39,14 +39,14 @@ def debug_ai_response():
             result = response.json()
             if result.get('success'):
                 new_nodes = result.get('new_nodes', {})
-                print("📋 AI响应结构:")
+                print("AI响应结构:")
                 print(json.dumps(new_nodes, ensure_ascii=False, indent=2))
                 
                 # 检查关键字段
-                print("\n🔍 字段检查:")
-                print(f"  entry_node: {'✅' if 'entry_node' in new_nodes else '❌'}")
-                print(f"  nodes: {'✅' if 'nodes' in new_nodes else '❌'}")
-                print(f"  root_node: {'✅' if 'root_node' in new_nodes else '❌'}")
+                print("\n字段检查:")
+                print(f"  entry_node: {'[OK]' if 'entry_node' in new_nodes else '[FAIL]'}")
+                print(f"  nodes: {'[OK]' if 'nodes' in new_nodes else '[FAIL]'}")
+                print(f"  root_node: {'[OK]' if 'root_node' in new_nodes else '[FAIL]'}")
                 
                 if 'nodes' in new_nodes:
                     nodes = new_nodes['nodes']
@@ -57,12 +57,12 @@ def debug_ai_response():
                         node_type = "决策节点" if 'question' in node_data else "解决方案节点"
                         print(f"    - {node_id}: {node_type}")
             else:
-                print(f"❌ AI处理失败: {result.get('error')}")
+                print(f"[ERROR] AI处理失败: {result.get('error')}")
         else:
-            print(f"❌ 请求失败: {response.status_code}")
+            print(f"[ERROR] 请求失败: {response.status_code}")
             
     except Exception as e:
-        print(f"❌ 调试失败: {e}")
+        print(f"[ERROR] 调试失败: {e}")
 
 if __name__ == "__main__":
     debug_ai_response() 
