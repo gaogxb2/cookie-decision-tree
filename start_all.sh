@@ -48,6 +48,14 @@ cd ..
 echo "等待前端启动..."
 sleep 3
 
+# 检查前端是否启动成功
+if ! kill -0 $FRONTEND_PID 2>/dev/null; then
+    echo "[ERROR] 前端启动失败！"
+    exit 1
+fi
+
+echo "[OK] 前端启动成功，PID: $FRONTEND_PID"
+
 # 启动后端服务器（前台运行，这样可以看到所有print输出）
 echo "启动后端服务器..."
 echo "后端将在 http://localhost:5000 启动"
@@ -55,9 +63,10 @@ echo "现在你可以看到所有的print输出了！"
 echo "按 Ctrl+C 停止所有服务"
 
 # 在前台启动后端，这样所有的print都会显示
-python api_server.py
+# 使用 exec 确保后端进程替换当前shell进程
+exec python api_server.py
 
-# 如果后端停止，清理前端进程
+# 注意：下面的代码只有在后端异常退出时才会执行
 echo "正在停止前端服务..."
 kill $FRONTEND_PID 2>/dev/null
 echo "所有服务已停止" 

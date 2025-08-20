@@ -1,5 +1,7 @@
 @echo off
-echo 正在停止决策树编辑器服务...
+REM 停止决策树编辑器服务 (Windows PyCharm版本)
+
+echo 正在停止决策树编辑器服务 (PyCharm版本)...
 
 echo.
 echo 查找并停止Python后端进程...
@@ -41,4 +43,8 @@ if %errorlevel% equ 0 (
 
 echo.
 echo 服务停止完成！
+echo.
+echo 提示：如果使用PyCharm，建议在PyCharm终端中运行此脚本
+echo 这样可以确保使用正确的Python环境
+echo.
 pause 
