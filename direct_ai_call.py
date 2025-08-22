@@ -5,6 +5,7 @@ import yaml
 import json
 import openai
 import os
+import requests
 from datetime import datetime
 
 class DirectAICaller:
@@ -30,7 +31,10 @@ class DirectAICaller:
             api_type = self.ai_config['ai']['current_api']
             api_config = self.ai_config['ai']['api'][api_type]
             
-            if api_type == "dashscope":
+            if api_type == "custom_http":
+                # 自定义HTTP请求不需要初始化客户端
+                return None
+            elif api_type == "dashscope":
                 api_key = os.getenv('DASHSCOPE_API_KEY')
                 if not api_key:
                     raise ValueError("请设置DASHSCOPE_API_KEY环境变量")
@@ -73,22 +77,96 @@ class DirectAICaller:
     def _call_ai_api(self, messages: list, model: str = None) -> str:
         """调用AI API"""
         try:
-            if model is None:
-                api_type = self.ai_config['ai']['current_api']
-                model = self.ai_config['ai']['api'][api_type]['model']
+            api_type = self.ai_config['ai']['current_api']
             
-            response = self.client.chat.completions.create(
-                model=model,
-                messages=messages,
-                temperature=self.ai_config['ai']['api'][self.ai_config['ai']['current_api']]['temperature'],
-                max_tokens=self.ai_config['ai']['api'][self.ai_config['ai']['current_api']]['max_tokens']
-            )
-            
-            return response.choices[0].message.content
+            if api_type == "custom_http":
+                return self._call_custom_http_api(messages)
+            else:
+                if model is None:
+                    model = self.ai_config['ai']['api'][api_type]['model']
+                
+                response = self.client.chat.completions.create(
+                    model=model,
+                    messages=messages,
+                    temperature=self.ai_config['ai']['api'][api_type]['temperature'],
+                    max_tokens=self.ai_config['ai']['api'][api_type]['max_tokens']
+                )
+                
+                return response.choices[0].message.content
                 
         except Exception as e:
             print(f"[ERROR] AI API调用失败: {e}")
             return None
+    
+    def _call_custom_http_api(self, messages: list) -> str:
+        """调用自定义HTTP API"""
+        try:
+            api_config = self.ai_config['ai']['api']['custom_http']
+            
+            # 获取API密钥
+            api_key_env = self.ai_config['ai']['api_keys']['custom_http']
+            api_key = os.getenv(api_key_env.replace('${', '').replace('}', ''))
+            if not api_key:
+                raise ValueError(f"请设置{api_key_env}环境变量")
+            
+            # 准备请求头
+            headers = {}
+            for key, value in api_config['headers'].items():
+                if value.startswith('${') and value.endswith('}'):
+                    # 替换环境变量
+                    env_var = value[2:-1]
+                    headers[key] = os.getenv(env_var, value)
+                else:
+                    headers[key] = value
+            
+            # 将消息列表转换为单个提示文本
+            prompt_text = self._messages_to_prompt(messages)
+            
+            # 构建请求体
+            body = {
+                "inputs": prompt_text,
+                "parameters": {
+                    "detail": True,
+                    "temperature": 0.1
+                }
+            }
+            
+            # 发送请求 - 使用requests.post(url, headers=headers, json=body)的方式
+            response = requests.post(
+                api_config['url'],
+                headers=headers,
+                json=body,
+                timeout=30
+            )
+            
+            if response.status_code != 200:
+                error_msg = f"HTTP {response.status_code}: {response.text}"
+                print(f"[ERROR] 自定义HTTP API调用失败: {error_msg}")
+                return None
+            
+            # 直接返回响应文本
+            return response.text
+            
+        except Exception as e:
+            print(f"[ERROR] 自定义HTTP API调用失败: {e}")
+            return None
+    
+    def _messages_to_prompt(self, messages: list) -> str:
+        """将消息列表转换为单个提示文本"""
+        prompt_parts = []
+        
+        for message in messages:
+            role = message.get('role', 'user')
+            content = message.get('content', '')
+            
+            if role == 'system':
+                prompt_parts.append(f"系统指令: {content}")
+            elif role == 'user':
+                prompt_parts.append(f"用户: {content}")
+            elif role == 'assistant':
+                prompt_parts.append(f"助手: {content}")
+        
+        return '\n\n'.join(prompt_parts)
     
     def parse_chat_to_path(self, chat_history: str) -> dict:
         """直接解析聊天记录为路径"""
